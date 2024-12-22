@@ -1,0 +1,6 @@
+package_lock.json
+.vite
+
+frontend/node_modules
+
+backend/.env

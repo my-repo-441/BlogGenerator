@@ -1,0 +1,113 @@
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Q Developerのドキュメント生成機能を試してみた</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #2C3E50;
+        }
+        code {
+            background-color: #F4F4F4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #F4F4F4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Amazon Q Developerの新機能を試してみる！</h1>
+<p>ある日、くれとむがチーズくんに、「Amazon Q Developerが新しくドキュメント生成機能を追加したらしいよ！」と言いました。</p>
+<p>チーズくんは、「それなら早速試してみよう！どうやって使うの？」と興奮気味に反応。</p>
+
+<h2>Amazon Q Developerとは？</h2>
+<p>Amazon Q Developerは、開発者向けに提供されているツールで、コードやドキュメントを基にドキュメントやユニットテストを自動生成する機能を持っています。この機能により、コーディングにより集中することが可能になります。</p>
+
+<h2>ドキュメント生成機能を使ってみた</h2>
+<p>早速実際に使ってみました。まずは、GitHubから対象のリポジトリをクローンします。</p>
+
+<pre><code>git clone https://github.com/aws-samples/amazon-bedrock-samples.git</code></pre>
+
+<p>次に、VSCodeを開いて、Amazon Q Developerをインストールします。インストール手順については公式ドキュメントを参考にしてください。</p>
+
+<h3>/docコマンドを使用してREADMEを生成</h3>
+<p>プロジェクトが準備できたら、VSCodeでチャット欄にコマンドを入力します。</p>
+<pre><code>/doc</code></pre>
+<p>すると、READMEを新規作成または更新する提案がありますので、今回は「Create a README」を選択しました。</p>
+
+<h3>生成されたREADME内容の確認</h3>
+<p>数分後、READMEの自動生成が完了しました。生成されたドキュメントの目次は以下の通りです：</p>
+<ul>
+    <li>AWS Serverless Java Container</li>
+    <li>Repository Structure</li>
+    <li>Usage Instructions</li>
+    <li>Data Flow</li>
+    <li>Deployment</li>
+    <li>Infrastructure</li>
+</ul>
+
+<p>それぞれの項目も、実際に有用な情報が記載されており、正確性も高かったです。</p>
+
+<h2>ユニットテスト生成機能も試してみる</h2>
+<p>続いて、ユニットテストの自動生成も行いました。こちらは/testコマンドを使います。</p>
+<pre><code>/test</code></pre>
+<p>指定したファイルに基づいてユニットテストが生成され、各メソッドに対するテストケースも用意されます。以下に一部抜粋します：</p>
+<pre><code>def test__is_restored_with_empty_restore_value(self):
+    file_info = FileInfo(src='test')
+    response_data = {'Restore': ''}
+    assert not file_info._is_restored(response_data)
+</code></pre>
+
+<h2>まとめ</h2>
+<p>予想以上に高品質なドキュメントとユニットテストが生成され、これからの開発にとても役立ちそうです。特に技術的負債の解消に向けて、大きな力を貸してくれる機能と感じました。</p>
+
+<p>これからもこの機能を活用して、開発効率を高めていきたいと思います。</p>
+
+</body>
+</html>
+```
+
+このHTML形式の記事は、Amazon Q Developerの新機能であるドキュメントとユニットテストの自動生成に関する体験を記述しています。記事の中では、くれとむとチーズくんのキャラクターによる軽い会話から始まって、具体的な操作方法と得られた成果について詳述しています。
+<p>また、ドキュメント生成を行った後、チーズくんは「この機能の他にも何か特別な機能があるのかな？」と尋ねました。</p>
+
+<h2>さらなる機能を探索する</h2>
+<p>そこで、くれとむは「そうだね、ドキュメント生成機能だけじゃなくて、他にもいろいろな機能があるみたいだよ。」と答えました。</p>
+
+<h3>コードスタイルの自動整形</h3>
+<p>Amazon Q Developerには、コーディングスタイルを保持するための自動整形機能もあります。特に大規模なプロジェクトでは、チームの全員が同じスタイルガイドに従うのが難しいことがありますが、この機能を使うことで、それを解決できます。</p>
+<p>たとえば、プロジェクト全体のコードを一貫したスタイルに整えるために、以下のコマンドを実行します。</p>
+<pre><code>/format_code</code></pre>
+
+<h3>エラーハンドリングの最適化</h3>
+<p>さらに、このツールはエラーハンドリングのコードを自動で提案してくれる機能もあります。開発者はエラー処理を別途考える必要がなく、生成されたコードの中でエラーが発生した際の対処方法を簡単に実装することができます。</p>
+<p>例えば、次のようなシンプルなエラーハンドリングが生成されました：</p>
+<pre><code>try:
+    result = risky_operation()
+except ExpectedError as e:
+    logging.error(f"An error occurred: {e}")
+    handle_recovery()
+</code></pre>
+
+<h2>今後の展望</h2>
+<p>くれとむとチーズくんは、これらの新機能を試すことで、開発のプロセスがどれだけ効率化されるのかを楽しみにしました。</p>
+<p>さらに、Amazon Q Developerが今後どのように進化していくのかも注目です。定期的に新機能が追加されているため、これからも進展に目を光らせて、新しいアイディアやツールを探求していく予定です。</p>
+
+<h2>最後に</h2>
+<p>このブログ記事を通じて、Amazon Q Developerのドキュメント生成機能やユニットテスト自動生成機能の魅力が伝わったことと思います。開発の現場で役立つこれらの機能を活用することで、より高品質なソフトウェアを作成する手助けをしてくれることでしょう。</p>
+<p>くれとむとチーズくんは、今後もこのツールを使って新しいプロジェクトに取り組み、自分たちの技術力をさらに向上させていくことを誓いました。</p>
+
+</body>
+</html>

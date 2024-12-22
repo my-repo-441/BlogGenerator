@@ -1,0 +1,23 @@
+.container {
+    padding: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .blog {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+  }
+  

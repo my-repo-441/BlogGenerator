@@ -1,0 +1,23 @@
+[
+    {
+        "title": "[アップデート] Amazon Q Developer のドキュメント生成機能を試し ...",
+        "url": "https://dev.classmethod.jp/articles/amazon-q-developer-agent-capabilities-include-generating-documentation/",
+        "snippet": "Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されました。 プロジェクトのコードを元に Readme ファイルとデータフロー図を自動生成してくれます。 この新しい機能により、Q Developer は既存のコードベースをより速く理解したり、新しい機能を素早く文書化したりすることができます。 早速やってみました。 ドキュメント を参考に CDK のサンプルアプリケーションを作成します。 VSCode で作成したプロジェクトを開き、Amazon Q の拡張機能を表示します。 チャット欄に /doc と入力してエンターを入れます。 README を作成するか更新するか提案されるので、今回はそのまま「Create a README」を選択します。",
+        "displayUrl": "https://dev.classmethod.jp/articles/amazon-q-developer...",
+        "datePublished": "2024-12-04T00:00:00.0000000"
+    },
+    {
+        "title": "Amazon Q Developerのドキュメント作成機能を使ってみた！ - Qiita",
+        "url": "https://qiita.com/har1101/items/b303e9105b29b9bdd525",
+        "snippet": "2024年12月3日、Amazon Q Developerはソースコード内でドキュメントを生成できるようになりました。 この機能によって、Amazon Q Developer Agentが手間のかかるドキュメント作成のタスクを処理するため、開発者はコードの作成と設計に集中できます。",
+        "displayUrl": "https://qiita.com/har1101/items/b303e9105b29b9bdd525",
+        "datePublished": "2024-12-05T00:00:00.0000000"
+    },
+    {
+        "title": "[検証] Amazon Q Developerのドキュメント＆ユニットテスト自動 ...",
+        "url": "https://qiita.com/yoshimi0227/items/336d2d1d9cd50c050754",
+        "snippet": "AWS re:Invent 2024にて、Amazon Q Developerのアップデートとして「コードに基づいたドキュメント自動生成」機能と「コードに基づいたユニットテスト自動生成」機能が発表されました。",
+        "displayUrl": "https://qiita.com/yoshimi0227/items/336d2d1d9cd50c050754",
+        "datePublished": "2024-12-10T00:00:00.0000000"
+    }
+]

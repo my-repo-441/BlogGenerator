@@ -1,0 +1,3360 @@
+URL: https://dev.classmethod.jp/articles/amazon-q-developer-agent-capabilities-include-generating-documentation/
+  AWS re:Invent 2024#Amazon Q#AWS AWS re:Invent 2024 AWS re:Invent 2024 AWS re:Invent 2024 AWS re:Invent 2024 #Amazon Q#AWS #Amazon Q #Amazon Q #AWS #AWS 中川翔太2024.12.04 中川翔太 中川翔太  中川翔太   2024.12.04 2024.12.04 2024.12.04 中川です。
+Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されました。
+https://aws.amazon.com/jp/about-aws/whats-new/2024/12/amazon-q-developer-generate-documentation-source-code/
+https://aws.amazon.com/jp/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/
+プロジェクトのコードを元に Readme ファイルとデータフロー図を自動生成してくれます。
+この新しい機能により、Q Developer は既存のコードベースをより速く理解したり、新しい機能を素早く文書化したりすることができます。
+ やってみた
+早速やってみました。
+ドキュメントを参考に CDK のサンプルアプリケーションを作成します。
+VSCode で作成したプロジェクトを開き、Amazon Q の拡張機能を表示します。
+チャット欄に /doc と入力してエンターを入れます。
+
+README を作成するか更新するか提案されるので、今回はそのまま「Create a README」を選択します。
+
+プロジェクトを聞かれるので、そのまま「Yes」を選択します。
+
+ソースファイルのスキャン、ソースファイルの要約がされた後に、ドキュメントの生成が行われています。
+
+ドキュメントの生成が完了すると生成されたファイルと、それを受け入れるか, 拒否するか, 再生成するか、表示されます。
+見た感じ良さそうだったので、[Accept]をクリックします。
+
+ファイルが保存され、プレビュー結果が自動で表示されました。
+
+ブロックや見出しの使い方が上手で、データフロー図も綺麗に作成してくれることを確認できました。
+
+生成された README の全文は以下より参照ください。
+README 全文 AWS CDK Hello World Lambda Function
+This project demonstrates how to create a simple "Hello World" Lambda function using AWS CDK with TypeScript.
+The AWS Cloud Development Kit (CDK) is an open-source software development framework to define cloud infrastructure in code and provision it through AWS CloudFormation. This project sets up a basic CDK application that deploys a Lambda function with a function URL, allowing you to invoke the function via HTTP requests.
+The Lambda function returns a simple "Hello World" message when invoked. This project serves as a starting point for more complex serverless applications and showcases the power of infrastructure as code using AWS CDK.
+ Repository Structure
+.
+├── bin
+│   └── hello-cdk.ts
+├── lib
+│   └── hello-cdk-stack.ts
+├── test
+│   └── hello-cdk.test.ts
+├── cdk.json
+├── jest.config.js
+├── package.json
+└── tsconfig.json
+
+bin/hello-cdk.ts: Entry point for the CDK application
+lib/hello-cdk-stack.ts: Defines the main CDK stack with the Lambda function
+test/hello-cdk.test.ts: Contains tests for the CDK stack (currently commented out)
+cdk.json: CDK configuration file
+jest.config.js: Jest testing framework configuration
+package.json: Node.js project configuration and dependencies
+tsconfig.json: TypeScript compiler configuration
+
+ Usage Instructions
+ Prerequisites
+
+Node.js (v14.x or later)
+AWS CLI configured with appropriate credentials
+AWS CDK CLI (v2.x)
+
+ Installation
+
+
+Clone the repository:
+git clone <repository-url>
+cd hello-cdk
+
+
+Install dependencies:
+npm install
+
+
+ Deploying the Stack
+
+
+Synthesize the CloudFormation template:
+npx cdk synth
+
+
+Deploy the stack:
+npx cdk deploy
+
+
+After deployment, the CDK will output the function URL. You can use this URL to invoke your Lambda function.
+ Testing
+To run the tests (once implemented):
+npm test
+ Modifying the Lambda Function
+The Lambda function is defined inline in lib/hello-cdk-stack.ts. To modify its behavior, update the code within the lambda.Code.fromInline() method.
+ Troubleshooting
+
+
+Issue: CDK deployment fails
+
+Ensure your AWS CLI is correctly configured with the appropriate permissions
+Check the CloudFormation console for detailed error messages
+Verify that you have the latest version of the CDK CLI installed
+
+
+
+Issue: Lambda function returns an error
+
+Check the CloudWatch logs for the Lambda function
+Ensure the function handler matches the one specified in the CDK stack
+
+
+
+Issue: Unable to invoke the Lambda function URL
+
+Verify that the function URL is correctly output after deployment
+Ensure your network allows outbound HTTPS connections
+
+
+
+For more detailed debugging:
+
+Enable CDK debug logging:export CDK_DEBUG=true
+
+Use the --debug flag with CDK commands for verbose output
+
+ Data Flow
+
+User sends an HTTP request to the Lambda function URL
+API Gateway (managed by Lambda function URLs) receives the request and forwards it to the Lambda function
+Lambda function executes, generating a "Hello World" response
+The response is sent back through API Gateway to the user
+
+[User]->[Function URL]->[Lambda]->[Function URL]->[User]
+Note: The Lambda function in this project is simple and stateless. For more complex applications, you might introduce additional components like databases or other AWS services.
+ Infrastructure
+This project uses AWS CDK to define the following resources:
+ Lambda
+
+HelloWorldFunction: A Node.js Lambda function that returns a "Hello World" message
+
+Runtime: Node.js 20.x
+Handler: index.handler
+Code: Defined inline in the CDK stack
+
+
+
+ Lambda Function URL
+
+Function URL: Provides HTTP(S) endpoint for the Lambda function
+
+Auth Type: NONE (public access)
+
+
+
+ CloudFormation Outputs
+
+myFunctionUrlOutput: The URL of the Lambda function, allowing easy access to the function's endpoint
+
+The infrastructure is defined in the HelloCdkStack class within lib/hello-cdk-stack.ts.
+
+ さいごに
+Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されたので試してみました。
+予想以上にきれいなドキュメントが生成されてびっくりしています。
+ますます Amazon Q が日本語対応してくれるときが楽しみになりました！
+ 中川です。
+Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されました。
+https://aws.amazon.com/jp/about-aws/whats-new/2024/12/amazon-q-developer-generate-documentation-source-code/
+https://aws.amazon.com/jp/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/
+プロジェクトのコードを元に Readme ファイルとデータフロー図を自動生成してくれます。
+この新しい機能により、Q Developer は既存のコードベースをより速く理解したり、新しい機能を素早く文書化したりすることができます。
+ やってみた
+早速やってみました。
+ドキュメントを参考に CDK のサンプルアプリケーションを作成します。
+VSCode で作成したプロジェクトを開き、Amazon Q の拡張機能を表示します。
+チャット欄に /doc と入力してエンターを入れます。
+
+README を作成するか更新するか提案されるので、今回はそのまま「Create a README」を選択します。
+
+プロジェクトを聞かれるので、そのまま「Yes」を選択します。
+
+ソースファイルのスキャン、ソースファイルの要約がされた後に、ドキュメントの生成が行われています。
+
+ドキュメントの生成が完了すると生成されたファイルと、それを受け入れるか, 拒否するか, 再生成するか、表示されます。
+見た感じ良さそうだったので、[Accept]をクリックします。
+
+ファイルが保存され、プレビュー結果が自動で表示されました。
+
+ブロックや見出しの使い方が上手で、データフロー図も綺麗に作成してくれることを確認できました。
+
+生成された README の全文は以下より参照ください。
+README 全文 AWS CDK Hello World Lambda Function
+This project demonstrates how to create a simple "Hello World" Lambda function using AWS CDK with TypeScript.
+The AWS Cloud Development Kit (CDK) is an open-source software development framework to define cloud infrastructure in code and provision it through AWS CloudFormation. This project sets up a basic CDK application that deploys a Lambda function with a function URL, allowing you to invoke the function via HTTP requests.
+The Lambda function returns a simple "Hello World" message when invoked. This project serves as a starting point for more complex serverless applications and showcases the power of infrastructure as code using AWS CDK.
+ Repository Structure
+.
+├── bin
+│   └── hello-cdk.ts
+├── lib
+│   └── hello-cdk-stack.ts
+├── test
+│   └── hello-cdk.test.ts
+├── cdk.json
+├── jest.config.js
+├── package.json
+└── tsconfig.json
+
+bin/hello-cdk.ts: Entry point for the CDK application
+lib/hello-cdk-stack.ts: Defines the main CDK stack with the Lambda function
+test/hello-cdk.test.ts: Contains tests for the CDK stack (currently commented out)
+cdk.json: CDK configuration file
+jest.config.js: Jest testing framework configuration
+package.json: Node.js project configuration and dependencies
+tsconfig.json: TypeScript compiler configuration
+
+ Usage Instructions
+ Prerequisites
+
+Node.js (v14.x or later)
+AWS CLI configured with appropriate credentials
+AWS CDK CLI (v2.x)
+
+ Installation
+
+
+Clone the repository:
+git clone <repository-url>
+cd hello-cdk
+
+
+Install dependencies:
+npm install
+
+
+ Deploying the Stack
+
+
+Synthesize the CloudFormation template:
+npx cdk synth
+
+
+Deploy the stack:
+npx cdk deploy
+
+
+After deployment, the CDK will output the function URL. You can use this URL to invoke your Lambda function.
+ Testing
+To run the tests (once implemented):
+npm test
+ Modifying the Lambda Function
+The Lambda function is defined inline in lib/hello-cdk-stack.ts. To modify its behavior, update the code within the lambda.Code.fromInline() method.
+ Troubleshooting
+
+
+Issue: CDK deployment fails
+
+Ensure your AWS CLI is correctly configured with the appropriate permissions
+Check the CloudFormation console for detailed error messages
+Verify that you have the latest version of the CDK CLI installed
+
+
+
+Issue: Lambda function returns an error
+
+Check the CloudWatch logs for the Lambda function
+Ensure the function handler matches the one specified in the CDK stack
+
+
+
+Issue: Unable to invoke the Lambda function URL
+
+Verify that the function URL is correctly output after deployment
+Ensure your network allows outbound HTTPS connections
+
+
+
+For more detailed debugging:
+
+Enable CDK debug logging:export CDK_DEBUG=true
+
+Use the --debug flag with CDK commands for verbose output
+
+ Data Flow
+
+User sends an HTTP request to the Lambda function URL
+API Gateway (managed by Lambda function URLs) receives the request and forwards it to the Lambda function
+Lambda function executes, generating a "Hello World" response
+The response is sent back through API Gateway to the user
+
+[User]->[Function URL]->[Lambda]->[Function URL]->[User]
+Note: The Lambda function in this project is simple and stateless. For more complex applications, you might introduce additional components like databases or other AWS services.
+ Infrastructure
+This project uses AWS CDK to define the following resources:
+ Lambda
+
+HelloWorldFunction: A Node.js Lambda function that returns a "Hello World" message
+
+Runtime: Node.js 20.x
+Handler: index.handler
+Code: Defined inline in the CDK stack
+
+
+
+ Lambda Function URL
+
+Function URL: Provides HTTP(S) endpoint for the Lambda function
+
+Auth Type: NONE (public access)
+
+
+
+ CloudFormation Outputs
+
+myFunctionUrlOutput: The URL of the Lambda function, allowing easy access to the function's endpoint
+
+The infrastructure is defined in the HelloCdkStack class within lib/hello-cdk-stack.ts.
+
+ さいごに
+Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されたので試してみました。
+予想以上にきれいなドキュメントが生成されてびっくりしています。
+ますます Amazon Q が日本語対応してくれるときが楽しみになりました！
+ 中川です。 Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されました。 https://aws.amazon.com/jp/about-aws/whats-new/2024/12/amazon-q-developer-generate-documentation-source-code/  https://aws.amazon.com/jp/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/  プロジェクトのコードを元に Readme ファイルとデータフロー図を自動生成してくれます。
+この新しい機能により、Q Developer は既存のコードベースをより速く理解したり、新しい機能を素早く文書化したりすることができます。 早速やってみました。
+ドキュメントを参考に CDK のサンプルアプリケーションを作成します。 VSCode で作成したプロジェクトを開き、Amazon Q の拡張機能を表示します。
+チャット欄に /doc と入力してエンターを入れます。  README を作成するか更新するか提案されるので、今回はそのまま「Create a README」を選択します。  プロジェクトを聞かれるので、そのまま「Yes」を選択します。  ソースファイルのスキャン、ソースファイルの要約がされた後に、ドキュメントの生成が行われています。  ドキュメントの生成が完了すると生成されたファイルと、それを受け入れるか, 拒否するか, 再生成するか、表示されます。
+見た感じ良さそうだったので、[Accept]をクリックします。  ファイルが保存され、プレビュー結果が自動で表示されました。  ブロックや見出しの使い方が上手で、データフロー図も綺麗に作成してくれることを確認できました。  生成された README の全文は以下より参照ください。  AWS CDK Hello World Lambda Function
+This project demonstrates how to create a simple "Hello World" Lambda function using AWS CDK with TypeScript.
+The AWS Cloud Development Kit (CDK) is an open-source software development framework to define cloud infrastructure in code and provision it through AWS CloudFormation. This project sets up a basic CDK application that deploys a Lambda function with a function URL, allowing you to invoke the function via HTTP requests.
+The Lambda function returns a simple "Hello World" message when invoked. This project serves as a starting point for more complex serverless applications and showcases the power of infrastructure as code using AWS CDK.
+ Repository Structure
+.
+├── bin
+│   └── hello-cdk.ts
+├── lib
+│   └── hello-cdk-stack.ts
+├── test
+│   └── hello-cdk.test.ts
+├── cdk.json
+├── jest.config.js
+├── package.json
+└── tsconfig.json
+
+bin/hello-cdk.ts: Entry point for the CDK application
+lib/hello-cdk-stack.ts: Defines the main CDK stack with the Lambda function
+test/hello-cdk.test.ts: Contains tests for the CDK stack (currently commented out)
+cdk.json: CDK configuration file
+jest.config.js: Jest testing framework configuration
+package.json: Node.js project configuration and dependencies
+tsconfig.json: TypeScript compiler configuration
+
+ Usage Instructions
+ Prerequisites
+
+Node.js (v14.x or later)
+AWS CLI configured with appropriate credentials
+AWS CDK CLI (v2.x)
+
+ Installation
+
+
+Clone the repository:
+git clone <repository-url>
+cd hello-cdk
+
+
+Install dependencies:
+npm install
+
+
+ Deploying the Stack
+
+
+Synthesize the CloudFormation template:
+npx cdk synth
+
+
+Deploy the stack:
+npx cdk deploy
+
+
+After deployment, the CDK will output the function URL. You can use this URL to invoke your Lambda function.
+ Testing
+To run the tests (once implemented):
+npm test
+ Modifying the Lambda Function
+The Lambda function is defined inline in lib/hello-cdk-stack.ts. To modify its behavior, update the code within the lambda.Code.fromInline() method.
+ Troubleshooting
+
+
+Issue: CDK deployment fails
+
+Ensure your AWS CLI is correctly configured with the appropriate permissions
+Check the CloudFormation console for detailed error messages
+Verify that you have the latest version of the CDK CLI installed
+
+
+
+Issue: Lambda function returns an error
+
+Check the CloudWatch logs for the Lambda function
+Ensure the function handler matches the one specified in the CDK stack
+
+
+
+Issue: Unable to invoke the Lambda function URL
+
+Verify that the function URL is correctly output after deployment
+Ensure your network allows outbound HTTPS connections
+
+
+
+For more detailed debugging:
+
+Enable CDK debug logging:export CDK_DEBUG=true
+
+Use the --debug flag with CDK commands for verbose output
+
+ Data Flow
+
+User sends an HTTP request to the Lambda function URL
+API Gateway (managed by Lambda function URLs) receives the request and forwards it to the Lambda function
+Lambda function executes, generating a "Hello World" response
+The response is sent back through API Gateway to the user
+
+[User]->[Function URL]->[Lambda]->[Function URL]->[User]
+Note: The Lambda function in this project is simple and stateless. For more complex applications, you might introduce additional components like databases or other AWS services.
+ Infrastructure
+This project uses AWS CDK to define the following resources:
+ Lambda
+
+HelloWorldFunction: A Node.js Lambda function that returns a "Hello World" message
+
+Runtime: Node.js 20.x
+Handler: index.handler
+Code: Defined inline in the CDK stack
+
+
+
+ Lambda Function URL
+
+Function URL: Provides HTTP(S) endpoint for the Lambda function
+
+Auth Type: NONE (public access)
+
+
+
+ CloudFormation Outputs
+
+myFunctionUrlOutput: The URL of the Lambda function, allowing easy access to the function's endpoint
+
+The infrastructure is defined in the HelloCdkStack class within lib/hello-cdk-stack.ts.
+ This project demonstrates how to create a simple "Hello World" Lambda function using AWS CDK with TypeScript. The AWS Cloud Development Kit (CDK) is an open-source software development framework to define cloud infrastructure in code and provision it through AWS CloudFormation. This project sets up a basic CDK application that deploys a Lambda function with a function URL, allowing you to invoke the function via HTTP requests. The Lambda function returns a simple "Hello World" message when invoked. This project serves as a starting point for more complex serverless applications and showcases the power of infrastructure as code using AWS CDK. .
+├── bin
+│   └── hello-cdk.ts
+├── lib
+│   └── hello-cdk-stack.ts
+├── test
+│   └── hello-cdk.test.ts
+├── cdk.json
+├── jest.config.js
+├── package.json
+└── tsconfig.json
+ Clone the repository: git clone <repository-url>
+cd hello-cdk
+ Install dependencies: npm install
+ Synthesize the CloudFormation template: npx cdk synth
+ Deploy the stack: npx cdk deploy
+ After deployment, the CDK will output the function URL. You can use this URL to invoke your Lambda function. To run the tests (once implemented): npm test
+ The Lambda function is defined inline in lib/hello-cdk-stack.ts. To modify its behavior, update the code within the lambda.Code.fromInline() method. Issue: CDK deployment fails Issue: Lambda function returns an error Issue: Unable to invoke the Lambda function URL For more detailed debugging: export CDK_DEBUG=true
+ [User]->[Function URL]->[Lambda]->[Function URL]->[User]
+ Note: The Lambda function in this project is simple and stateless. For more complex applications, you might introduce additional components like databases or other AWS services. This project uses AWS CDK to define the following resources: The infrastructure is defined in the HelloCdkStack class within lib/hello-cdk-stack.ts. Amazon Q Developer エージェントの新機能としてドキュメント生成が発表されたので試してみました。
+予想以上にきれいなドキュメントが生成されてびっくりしています。
+ますます Amazon Q が日本語対応してくれるときが楽しみになりました！
+
+URL: https://qiita.com/har1101/items/b303e9105b29b9bdd525
+re:Invent近辺のAWSアップデートを試してみる！Advent Calendar 2024Day 4@har1101Amazon Q Developerのドキュメント作成機能を使ってみた！AWSAmazonQreInvent2024Posted at 2024-12-04 re:Invent近辺のAWSアップデートを試してみる！Advent Calendar 2024 re:Invent近辺のAWSアップデートを試してみる！ Advent Calendar 2024 Day 4 @har1101 @har1101  Posted at 2024-12-04 Posted at 2024-12-04 
+やりたいこと
+Bedrockの新機能、カスタムオーケストレーションリポジトリが公式のGitHub上に存在するのですが、1つ問題点があります。
+一切ドキュメントがない！！！READMEすらない！！！
+
+
+
+しかもこの機能めちゃくちゃ難しく、さらにリポジトリを見ても何をどうすればいいかよくわからない。
+だったらAmazon Q DeveloperにREADMEを作ってもらおうじゃないか！ということでやってみました！
+
+Amazon Q Developer Agentのドキュメント作成機能
+2024年12月3日、Amazon Q Developerはソースコード内でドキュメントを生成できるようになりました。
+この機能によって、Amazon Q Developer Agentが手間のかかるドキュメント作成のタスクを処理するため、開発者はコードの作成と設計に集中できます。
+
+
+
+他にも、ユニットテスト作成機能や、コードレビュー機能も追加されています。まとめてブログ化されていました。
+総じて、開発者がよりコーディングに集中できるような仕組みが整ってきています。
+
+
+
+
+料金形態
+Amazon Q Developerの機能の一部なので、この機能を使うからと言って特別追加で料金がかかることはありません。
+Amazon Q Developerの料金形態としては、フリーティアとプロティアがあります。
+フリーはもちろん無料、プロは1ユーザーあたり19ドル/月です。
+フリーでも月10回呼び出せるそうなので、お試しするくらいなら無料で使えそうですね！
+詳しくは↓
+
+
+
+
+やってみる
+まずはVSCode上にリポジトリをクローンします。
+以下のコマンドをVSCodeのターミナルで叩きます。
+git clone https://github.com/aws-samples/amazon-bedrock-samples.git
+
+こんな感じになればOKです。
+
+続いて、早速Amazon Q Developerの出番。
+
+
+Amazon Q Developerのインストール手順については、以下のブログをご参照ください。
+https://blog.serverworks.co.jp/2024/07/26/174241
+
+
+入力欄に「/(スラッシュ)」を打つと、Amazon Q Developerのどの機能を使うかが選べます。
+
+今回は /doc を選択し、エンターキーを押します。
+
+すると、ドキュメント生成モードに移行します。
+始めるには、Create a README か Update an existing fREADME かを選びます。
+今回は前者を選択。
+
+ClaudeHandsonディレクトリのREADMEは不要なので、Change folderを選択。
+
+今回はもちろん、カスタムオーケストレーションのフォルダーを選択します。
+
+再度確認されるので、Yes を選択。
+
+すると、実行開始してくれます。
+実行手順としては、3段階あるようです。
+
+ソースファイルの読み取り
+ソースファイルの要約
+ドキュメントの生成
+
+
+数分待つと完了し、実際にREADMEが生成されていました！
+
+実際に生成されたドキュメントはこちら(長いので折りたたんでいます)
+
+Amazon Bedrock Agent with Custom Orchestration
+This project demonstrates how to create and use a Bedrock Agent with custom orchestration for managing restaurant bookings. It showcases the integration of AWS services like Lambda, DynamoDB, and Amazon Bedrock to create an intelligent conversational agent.
+The custom orchestration feature allows for fine-grained control over the agent's behavior, enabling complex conversation flows and integration with external tools and services.
+
+Repository Structure
+
+
+agents.py: Main script for creating and managing Bedrock agents, including IAM roles and Lambda functions.
+
+knowledge_bases.py: Helper class for creating and managing Knowledge Bases for Amazon Bedrock.
+
+lambda_function.py: Lambda function for handling restaurant booking operations.
+
+lambda_rewoo.py: Custom orchestration Lambda function for the Bedrock agent.
+
+custom_orchestrators_samples/: Directory containing sample custom orchestrators:
+
+
+lambda_react.js: JavaScript implementation of a React-based orchestrator.
+
+lambda_react.py: Python implementation of a React-based orchestrator.
+
+lambda_rewoo.js: JavaScript implementation of a ReWOO-based orchestrator.
+
+
+
+
+Usage Instructions
+
+Prerequisites
+
+AWS CLI configured with appropriate permissions
+Python 3.11 or later
+Boto3 library installed
+Access to Amazon Bedrock and related services
+
+
+Setting Up the Environment
+
+
+Clone the repository:
+git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+
+
+
+Install required Python packages:
+pip install boto3 opensearch-py retrying
+
+
+
+Ensure you have the necessary AWS permissions to create and manage Bedrock agents, Lambda functions, DynamoDB tables, and IAM roles.
+
+
+
+Creating a Bedrock Agent with Custom Orchestration
+
+
+Modify the agents.py script to set your desired agent configuration:
+
+Agent name
+Description
+Foundation model
+Instruction
+Custom orchestration Lambda function (if using)
+
+
+
+Run the agents.py script:
+python agents.py
+
+
+
+The script will create:
+
+A DynamoDB table for storing restaurant bookings
+A Lambda function for handling booking operations
+IAM roles and policies
+A Bedrock agent with custom orchestration
+
+
+
+
+Using the Agent
+Once the agent is created, you can interact with it using the Bedrock Agent Runtime API or through the AWS Console. The agent can handle restaurant booking operations such as:
+
+Creating a new booking
+Retrieving booking details
+Deleting a booking
+
+Example interaction:
+response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='I want to book a table for 4 people tomorrow at 7 PM'
+)
+print(response['completion'])
+
+
+Data Flow
+
+User input is received by the Bedrock Agent.
+The custom orchestration Lambda function (lambda_rewoo.py or one of the samples in custom_orchestrators_samples/) processes the input and determines the next action.
+If a booking operation is required, the orchestrator invokes the booking Lambda function (lambda_function.py).
+The booking Lambda function interacts with the DynamoDB table to create, retrieve, or delete bookings.
+The result is returned to the orchestrator, which then formulates a response.
+The Bedrock Agent sends the final response back to the user.
+
+User Input -> Bedrock Agent -> Custom Orchestrator -> Booking Lambda -> DynamoDB
+                    ^                    |
+                    |                    v
+                    User <---- Bedrock Agent <---- Custom Orchestrator
+
+
+Troubleshooting
+
+If you encounter permission issues, ensure that the IAM roles have the correct policies attached.
+Check CloudWatch Logs for Lambda function execution logs to debug any issues.
+Verify that the DynamoDB table is created correctly and accessible to the Lambda function.
+
+
+Infrastructure
+The project uses the following AWS resources:
+
+Lambda:
+
+
+lambda_function: Handles restaurant booking operations
+Custom orchestration Lambda (e.g., lambda_rewoo)
+
+
+DynamoDB:
+
+Table for storing restaurant bookings
+
+
+IAM:
+
+Roles for Lambda functions and Bedrock agent
+
+
+Amazon Bedrock:
+
+Bedrock agent with custom orchestration
+
+
+
+
+Deployment
+The agents.py script handles the deployment of all necessary resources. Ensure you have the required AWS permissions before running the script.
+For production deployments, consider using AWS CloudFormation or AWS CDK to manage the infrastructure as code.
+
+日本語翻訳版はこちらです(長いので折りたたんでいます)
+
+カスタムオーケストレーションを使用したAmazon Bedrock Agent
+このプロジェクトは、レストランの予約管理のためのカスタムオーケストレーション機能を持つBedrock Agentの作成方法と使用方法を示しています。Lambda、DynamoDB、Amazon BedrockなどのAWSサービスを統合して、インテリジェントな対話型エージェントを作成する方法を紹介します。
+カスタムオーケストレーション機能により、エージェントの動作を細かく制御でき、複雑な会話フローと外部ツールやサービスとの統合を実現できます。
+
+リポジトリ構造
+
+
+agents.py: Bedrockエージェントの作成と管理のためのメインスクリプト（IAMロールとLambda関数を含む）
+
+knowledge_bases.py: Amazon Bedrockのナレッジベースを作成・管理するためのヘルパークラス
+
+lambda_function.py: レストラン予約操作を処理するためのLambda関数
+
+lambda_rewoo.py: Bedrockエージェント用のカスタムオーケストレーションLambda関数
+
+custom_orchestrators_samples/: サンプルカスタムオーケストレーターを含むディレクトリ：
+
+
+lambda_react.js: ReactベースのオーケストレーターのJavaScript実装
+
+lambda_react.py: ReactベースのオーケストレーターのPython実装
+
+lambda_rewoo.js: ReWOOベースのオーケストレーターのJavaScript実装
+
+
+
+
+使用方法
+
+前提条件
+
+適切な権限で設定されたAWS CLI
+Python 3.11以降
+Boto3ライブラリがインストールされていること
+Amazon Bedrockおよび関連サービスへのアクセス権限
+
+
+環境のセットアップ
+
+
+リポジトリをクローン：
+git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+
+
+
+必要なPythonパッケージをインストール：
+pip install boto3 opensearch-py retrying
+
+
+
+Bedrockエージェント、Lambda関数、DynamoDBテーブル、IAMロールを作成および管理するための必要なAWS権限があることを確認してください。
+
+
+
+カスタムオーケストレーション付きBedrockエージェントの作成
+
+
+agents.pyスクリプトを以下の設定で変更：
+
+エージェント名
+説明
+基盤モデル
+インストラクション
+カスタムオーケストレーションLambda関数（使用する場合）
+
+
+
+agents.pyスクリプトを実行：
+python agents.py
+
+
+
+スクリプトは以下を作成します：
+
+レストラン予約を保存するためのDynamoDBテーブル
+予約操作を処理するためのLambda関数
+IAMロールとポリシー
+カスタムオーケストレーション付きBedrockエージェント
+
+
+
+
+エージェントの使用
+エージェントが作成されたら、Bedrock Agent Runtime APIまたはAWSコンソールを使用して対話できます。エージェントは以下のようなレストラン予約操作を処理できます：
+
+新規予約の作成
+予約詳細の取得
+予約の削除
+
+対話例：
+response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='明日の午後7時に4人で予約したいです'
+)
+print(response['completion'])
+
+
+データフロー
+
+ユーザー入力がBedrockエージェントによって受信されます。
+カスタムオーケストレーションLambda関数（lambda_rewoo.pyまたはcustom_orchestrators_samples/内のサンプルのいずれか）が入力を処理し、次のアクションを決定します。
+予約操作が必要な場合、オーケストレーターは予約Lambda関数（lambda_function.py）を呼び出します。
+予約Lambda関数はDynamoDBテーブルと連携して、予約の作成、取得、削除を行います。
+結果はオーケストレーターに返され、応答が作成されます。
+Bedrockエージェントがユーザーに最終応答を送信します。
+
+ユーザー入力 -> Bedrockエージェント -> カスタムオーケストレーター -> 予約Lambda -> DynamoDB
+                     ^                    |
+                     |                    v
+                     ユーザー <---- Bedrockエージェント <---- カスタムオーケストレーター
+
+
+トラブルシューティング
+
+権限の問題が発生した場合は、IAMロールに正しいポリシーが付与されていることを確認してください。
+問題をデバッグするには、CloudWatch LogsでLambda関数の実行ログを確認してください。
+DynamoDBテーブルが正しく作成され、Lambda関数からアクセス可能であることを確認してください。
+
+
+インフラストラクチャ
+このプロジェクトは以下のAWSリソースを使用します：
+
+Lambda：
+
+
+lambda_function: レストラン予約操作を処理
+カスタムオーケストレーションLambda（例：lambda_rewoo）
+
+
+DynamoDB：
+
+レストラン予約を保存するためのテーブル
+
+
+IAM：
+
+Lambda関数とBedrockエージェント用のロール
+
+
+Amazon Bedrock：
+
+カスタムオーケストレーション付きBedrockエージェント
+
+
+
+
+デプロイメント
+agents.pyスクリプトが必要なリソースすべてのデプロイメントを処理します。スクリプトを実行する前に、必要なAWS権限があることを確認してください。
+本番環境へのデプロイメントでは、AWS CloudFormationまたはAWS CDKを使用してインフラストラクチャをコードとして管理することを検討してください。
+
+これが一瞬で作られるって、もしかしたらとんでもない時代が来たかもしれません…
+ちなみにですが、気に入らない場所があったら修正もしてくれるそうです。
+今回は Make change としてみます。
+
+ここでは自由記述で依頼できるそうです。
+先ほど作成してくれたドキュメントの中で、
+「Creating a Bedrock Agent with Custom Orchestration がわかりにくかったので、1つ1つの手順をよりわかりやすく、丁寧に説明してください」
+と依頼してみます。
+
+すると再び思考し…
+
+READMEがアップデートされました！
+
+変更箇所だけ抜き出してみます。
+更新された英語版(長いので折りたたんでいます)
+
+Creating a Bedrock Agent with Custom Orchestration
+The process of creating a Bedrock Agent with custom orchestration involves several steps, each handled by functions in the agents.py script. Here's a detailed breakdown of the process:
+
+
+Configure the agent settings:
+Open the agents.py script and modify the following variables at the top of the script:
+
+
+agent_name: Choose a unique name for your agent
+
+agent_description: Provide a brief description of your agent's purpose
+
+agent_foundation_model: Specify the foundation model to use (e.g., "anthropic.claude-v2")
+
+agent_instruction: Define the primary instruction for your agent
+
+custom_orchestration_lambda: Set to None if not using custom orchestration, or provide the Lambda function name if using custom orchestration
+
+
+
+Create a DynamoDB table:
+The script uses the create_dynamodb function to create a table for storing restaurant bookings. This table will be used by the booking Lambda function.
+create_dynamodb(table_name, 'booking_id')
+
+
+
+Create an IAM role for the Lambda function:
+The create_lambda_role function sets up an IAM role with the necessary permissions for the Lambda function to access DynamoDB and other required services.
+lambda_iam_role = create_lambda_role(agent_name)
+
+
+
+Create the booking Lambda function:
+The create_lambda function packages and deploys the Lambda function that handles booking operations.
+lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+
+
+
+(Optional) Create the custom orchestration Lambda function:
+If using custom orchestration, another Lambda function is created to handle the orchestration logic.
+custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+
+
+
+Create an IAM role for the Bedrock Agent:
+The script sets up an IAM role that allows the Bedrock Agent to invoke Lambda functions and access other necessary resources.
+
+
+Create the Bedrock Agent:
+The create_agent_object function is called to create the Bedrock Agent with the specified configuration, including custom orchestration if enabled.
+agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+
+
+
+Create an alias for the Bedrock Agent:
+An alias is created for the agent to make it easier to manage different versions.
+alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+
+
+
+Run the script:
+Execute the agents.py script to create all the necessary resources and the Bedrock Agent:
+python agents.py
+
+The script will output progress information and any errors encountered during the creation process.
+
+
+Verify the agent creation:
+After the script completes, you can verify the agent's creation in the AWS Console or by using the Bedrock Agent API.
+
+
+By following these steps, you'll create a Bedrock Agent with custom orchestration, including all the necessary AWS resources like DynamoDB tables, Lambda functions, and IAM roles. The agent will be ready to handle restaurant booking operations using the custom logic defined in the orchestration Lambda function.
+
+更新された日本語版(長いので折りたたんでいます)
+
+環境のセットアップ
+
+
+リポジトリをクローン：
+git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+
+
+
+必要なPythonパッケージをインストール：
+pip install boto3 opensearch-py retrying
+
+
+
+Bedrockエージェント、Lambda関数、DynamoDBテーブル、IAMロールの作成と管理に必要なAWS権限があることを確認してください。
+
+
+
+カスタムオーケストレーション付きBedrockエージェントの作成
+カスタムオーケストレーション付きBedrockエージェントの作成プロセスは、agents.pyスクリプト内の関数によって処理される複数のステップで構成されています。以下に詳細な手順を説明します：
+
+
+エージェント設定の構成：
+agents.pyスクリプトを開き、スクリプト上部の以下の変数を変更します：
+
+
+agent_name：エージェントの一意の名前を選択
+
+agent_description：エージェントの目的の簡単な説明
+
+agent_foundation_model：使用する基盤モデルを指定（例：「anthropic.claude-v2」）
+
+agent_instruction：エージェントの主要な指示を定義
+
+custom_orchestration_lambda：カスタムオーケストレーションを使用しない場合はNone、使用する場合はLambda関数名を指定
+
+
+
+DynamoDBテーブルの作成：
+スクリプトはcreate_dynamodb関数を使用してレストラン予約保存用のテーブルを作成します。このテーブルは予約Lambda関数によって使用されます。
+create_dynamodb(table_name, 'booking_id')
+
+
+
+Lambda関数用のIAMロールの作成：
+create_lambda_role関数は、Lambda関数がDynamoDBやその他の必要なサービスにアクセスするために必要な権限を持つIAMロールを設定します。
+lambda_iam_role = create_lambda_role(agent_name)
+
+
+
+予約Lambda関数の作成：
+create_lambda関数は、予約操作を処理するLambda関数をパッケージ化してデプロイします。
+lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+
+
+
+（オプション）カスタムオーケストレーションLambda関数の作成：
+カスタムオーケストレーションを使用する場合、オーケストレーションロジックを処理する別のLambda関数が作成されます。
+custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+
+
+
+BedrockエージェントのIAMロールの作成：
+スクリプトは、BedrockエージェントがLambda関数を呼び出し、他の必要なリソースにアクセスできるようにするIAMロールを設定します。
+
+
+Bedrockエージェントの作成：
+create_agent_object関数を呼び出して、カスタムオーケストレーション（有効な場合）を含む指定された設定でBedrockエージェントを作成します。
+agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+
+
+
+Bedrockエージェントのエイリアスの作成：
+異なるバージョンを簡単に管理できるように、エージェントのエイリアスを作成します。
+alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+
+
+
+スクリプトの実行：
+必要なリソースとBedrockエージェントを作成するために、agents.pyスクリプトを実行します：
+python agents.py
+
+スクリプトは作成プロセス中の進行状況とエラー（もしあれば）を出力します。
+
+
+エージェント作成の確認：
+スクリプトの完了後、AWSコンソールまたはBedrock Agent APIを使用してエージェントの作成を確認できます。
+
+
+これらの手順に従うことで、DynamoDBテーブル、Lambda関数、IAMロールなどの必要なAWSリソースを含む、カスタムオーケストレーション付きBedrockエージェントが作成されます。エージェントはオーケストレーションLambda関数で定義されたカスタムロジックを使用してレストラン予約操作を処理できる状態になります。
+
+め、めっちゃ詳細に解説してくれてる〜〜〜！！！
+ということでこれでOKでしょう！Accept します！
+
+あっさりとREADMEが完成しました！
+
+これを実際に試すのはまた別記事で！
+
+まとめ
+めちゃくちゃ簡単にREADMEを作成してくれました！
+ここまで来ると、最早こんなに簡単でいいのか？って感じです。
+技術的負債の解消に一役買ってくれそうな機能だと思います！
+あとは、もっと大規模で複雑なシステムになった時にどこまで正確に解釈して文字起こししてくれるか、でしょうか…
+今後の動向にも注目です！
+ 
+やりたいこと
+Bedrockの新機能、カスタムオーケストレーションリポジトリが公式のGitHub上に存在するのですが、1つ問題点があります。
+一切ドキュメントがない！！！READMEすらない！！！
+
+
+
+しかもこの機能めちゃくちゃ難しく、さらにリポジトリを見ても何をどうすればいいかよくわからない。
+だったらAmazon Q DeveloperにREADMEを作ってもらおうじゃないか！ということでやってみました！
+
+Amazon Q Developer Agentのドキュメント作成機能
+2024年12月3日、Amazon Q Developerはソースコード内でドキュメントを生成できるようになりました。
+この機能によって、Amazon Q Developer Agentが手間のかかるドキュメント作成のタスクを処理するため、開発者はコードの作成と設計に集中できます。
+
+
+
+他にも、ユニットテスト作成機能や、コードレビュー機能も追加されています。まとめてブログ化されていました。
+総じて、開発者がよりコーディングに集中できるような仕組みが整ってきています。
+
+
+
+
+料金形態
+Amazon Q Developerの機能の一部なので、この機能を使うからと言って特別追加で料金がかかることはありません。
+Amazon Q Developerの料金形態としては、フリーティアとプロティアがあります。
+フリーはもちろん無料、プロは1ユーザーあたり19ドル/月です。
+フリーでも月10回呼び出せるそうなので、お試しするくらいなら無料で使えそうですね！
+詳しくは↓
+
+
+
+
+やってみる
+まずはVSCode上にリポジトリをクローンします。
+以下のコマンドをVSCodeのターミナルで叩きます。
+git clone https://github.com/aws-samples/amazon-bedrock-samples.git
+
+こんな感じになればOKです。
+
+続いて、早速Amazon Q Developerの出番。
+
+
+Amazon Q Developerのインストール手順については、以下のブログをご参照ください。
+https://blog.serverworks.co.jp/2024/07/26/174241
+
+
+入力欄に「/(スラッシュ)」を打つと、Amazon Q Developerのどの機能を使うかが選べます。
+
+今回は /doc を選択し、エンターキーを押します。
+
+すると、ドキュメント生成モードに移行します。
+始めるには、Create a README か Update an existing fREADME かを選びます。
+今回は前者を選択。
+
+ClaudeHandsonディレクトリのREADMEは不要なので、Change folderを選択。
+
+今回はもちろん、カスタムオーケストレーションのフォルダーを選択します。
+
+再度確認されるので、Yes を選択。
+
+すると、実行開始してくれます。
+実行手順としては、3段階あるようです。
+
+ソースファイルの読み取り
+ソースファイルの要約
+ドキュメントの生成
+
+
+数分待つと完了し、実際にREADMEが生成されていました！
+
+実際に生成されたドキュメントはこちら(長いので折りたたんでいます)
+
+Amazon Bedrock Agent with Custom Orchestration
+This project demonstrates how to create and use a Bedrock Agent with custom orchestration for managing restaurant bookings. It showcases the integration of AWS services like Lambda, DynamoDB, and Amazon Bedrock to create an intelligent conversational agent.
+The custom orchestration feature allows for fine-grained control over the agent's behavior, enabling complex conversation flows and integration with external tools and services.
+
+Repository Structure
+
+
+agents.py: Main script for creating and managing Bedrock agents, including IAM roles and Lambda functions.
+
+knowledge_bases.py: Helper class for creating and managing Knowledge Bases for Amazon Bedrock.
+
+lambda_function.py: Lambda function for handling restaurant booking operations.
+
+lambda_rewoo.py: Custom orchestration Lambda function for the Bedrock agent.
+
+custom_orchestrators_samples/: Directory containing sample custom orchestrators:
+
+
+lambda_react.js: JavaScript implementation of a React-based orchestrator.
+
+lambda_react.py: Python implementation of a React-based orchestrator.
+
+lambda_rewoo.js: JavaScript implementation of a ReWOO-based orchestrator.
+
+
+
+
+Usage Instructions
+
+Prerequisites
+
+AWS CLI configured with appropriate permissions
+Python 3.11 or later
+Boto3 library installed
+Access to Amazon Bedrock and related services
+
+
+Setting Up the Environment
+
+
+Clone the repository:
+git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+
+
+
+Install required Python packages:
+pip install boto3 opensearch-py retrying
+
+
+
+Ensure you have the necessary AWS permissions to create and manage Bedrock agents, Lambda functions, DynamoDB tables, and IAM roles.
+
+
+
+Creating a Bedrock Agent with Custom Orchestration
+
+
+Modify the agents.py script to set your desired agent configuration:
+
+Agent name
+Description
+Foundation model
+Instruction
+Custom orchestration Lambda function (if using)
+
+
+
+Run the agents.py script:
+python agents.py
+
+
+
+The script will create:
+
+A DynamoDB table for storing restaurant bookings
+A Lambda function for handling booking operations
+IAM roles and policies
+A Bedrock agent with custom orchestration
+
+
+
+
+Using the Agent
+Once the agent is created, you can interact with it using the Bedrock Agent Runtime API or through the AWS Console. The agent can handle restaurant booking operations such as:
+
+Creating a new booking
+Retrieving booking details
+Deleting a booking
+
+Example interaction:
+response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='I want to book a table for 4 people tomorrow at 7 PM'
+)
+print(response['completion'])
+
+
+Data Flow
+
+User input is received by the Bedrock Agent.
+The custom orchestration Lambda function (lambda_rewoo.py or one of the samples in custom_orchestrators_samples/) processes the input and determines the next action.
+If a booking operation is required, the orchestrator invokes the booking Lambda function (lambda_function.py).
+The booking Lambda function interacts with the DynamoDB table to create, retrieve, or delete bookings.
+The result is returned to the orchestrator, which then formulates a response.
+The Bedrock Agent sends the final response back to the user.
+
+User Input -> Bedrock Agent -> Custom Orchestrator -> Booking Lambda -> DynamoDB
+                    ^                    |
+                    |                    v
+                    User <---- Bedrock Agent <---- Custom Orchestrator
+
+
+Troubleshooting
+
+If you encounter permission issues, ensure that the IAM roles have the correct policies attached.
+Check CloudWatch Logs for Lambda function execution logs to debug any issues.
+Verify that the DynamoDB table is created correctly and accessible to the Lambda function.
+
+
+Infrastructure
+The project uses the following AWS resources:
+
+Lambda:
+
+
+lambda_function: Handles restaurant booking operations
+Custom orchestration Lambda (e.g., lambda_rewoo)
+
+
+DynamoDB:
+
+Table for storing restaurant bookings
+
+
+IAM:
+
+Roles for Lambda functions and Bedrock agent
+
+
+Amazon Bedrock:
+
+Bedrock agent with custom orchestration
+
+
+
+
+Deployment
+The agents.py script handles the deployment of all necessary resources. Ensure you have the required AWS permissions before running the script.
+For production deployments, consider using AWS CloudFormation or AWS CDK to manage the infrastructure as code.
+
+日本語翻訳版はこちらです(長いので折りたたんでいます)
+
+カスタムオーケストレーションを使用したAmazon Bedrock Agent
+このプロジェクトは、レストランの予約管理のためのカスタムオーケストレーション機能を持つBedrock Agentの作成方法と使用方法を示しています。Lambda、DynamoDB、Amazon BedrockなどのAWSサービスを統合して、インテリジェントな対話型エージェントを作成する方法を紹介します。
+カスタムオーケストレーション機能により、エージェントの動作を細かく制御でき、複雑な会話フローと外部ツールやサービスとの統合を実現できます。
+
+リポジトリ構造
+
+
+agents.py: Bedrockエージェントの作成と管理のためのメインスクリプト（IAMロールとLambda関数を含む）
+
+knowledge_bases.py: Amazon Bedrockのナレッジベースを作成・管理するためのヘルパークラス
+
+lambda_function.py: レストラン予約操作を処理するためのLambda関数
+
+lambda_rewoo.py: Bedrockエージェント用のカスタムオーケストレーションLambda関数
+
+custom_orchestrators_samples/: サンプルカスタムオーケストレーターを含むディレクトリ：
+
+
+lambda_react.js: ReactベースのオーケストレーターのJavaScript実装
+
+lambda_react.py: ReactベースのオーケストレーターのPython実装
+
+lambda_rewoo.js: ReWOOベースのオーケストレーターのJavaScript実装
+
+
+
+
+使用方法
+
+前提条件
+
+適切な権限で設定されたAWS CLI
+Python 3.11以降
+Boto3ライブラリがインストールされていること
+Amazon Bedrockおよび関連サービスへのアクセス権限
+
+
+環境のセットアップ
+
+
+リポジトリをクローン：
+git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+
+
+
+必要なPythonパッケージをインストール：
+pip install boto3 opensearch-py retrying
+
+
+
+Bedrockエージェント、Lambda関数、DynamoDBテーブル、IAMロールを作成および管理するための必要なAWS権限があることを確認してください。
+
+
+
+カスタムオーケストレーション付きBedrockエージェントの作成
+
+
+agents.pyスクリプトを以下の設定で変更：
+
+エージェント名
+説明
+基盤モデル
+インストラクション
+カスタムオーケストレーションLambda関数（使用する場合）
+
+
+
+agents.pyスクリプトを実行：
+python agents.py
+
+
+
+スクリプトは以下を作成します：
+
+レストラン予約を保存するためのDynamoDBテーブル
+予約操作を処理するためのLambda関数
+IAMロールとポリシー
+カスタムオーケストレーション付きBedrockエージェント
+
+
+
+
+エージェントの使用
+エージェントが作成されたら、Bedrock Agent Runtime APIまたはAWSコンソールを使用して対話できます。エージェントは以下のようなレストラン予約操作を処理できます：
+
+新規予約の作成
+予約詳細の取得
+予約の削除
+
+対話例：
+response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='明日の午後7時に4人で予約したいです'
+)
+print(response['completion'])
+
+
+データフロー
+
+ユーザー入力がBedrockエージェントによって受信されます。
+カスタムオーケストレーションLambda関数（lambda_rewoo.pyまたはcustom_orchestrators_samples/内のサンプルのいずれか）が入力を処理し、次のアクションを決定します。
+予約操作が必要な場合、オーケストレーターは予約Lambda関数（lambda_function.py）を呼び出します。
+予約Lambda関数はDynamoDBテーブルと連携して、予約の作成、取得、削除を行います。
+結果はオーケストレーターに返され、応答が作成されます。
+Bedrockエージェントがユーザーに最終応答を送信します。
+
+ユーザー入力 -> Bedrockエージェント -> カスタムオーケストレーター -> 予約Lambda -> DynamoDB
+                     ^                    |
+                     |                    v
+                     ユーザー <---- Bedrockエージェント <---- カスタムオーケストレーター
+
+
+トラブルシューティング
+
+権限の問題が発生した場合は、IAMロールに正しいポリシーが付与されていることを確認してください。
+問題をデバッグするには、CloudWatch LogsでLambda関数の実行ログを確認してください。
+DynamoDBテーブルが正しく作成され、Lambda関数からアクセス可能であることを確認してください。
+
+
+インフラストラクチャ
+このプロジェクトは以下のAWSリソースを使用します：
+
+Lambda：
+
+
+lambda_function: レストラン予約操作を処理
+カスタムオーケストレーションLambda（例：lambda_rewoo）
+
+
+DynamoDB：
+
+レストラン予約を保存するためのテーブル
+
+
+IAM：
+
+Lambda関数とBedrockエージェント用のロール
+
+
+Amazon Bedrock：
+
+カスタムオーケストレーション付きBedrockエージェント
+
+
+
+
+デプロイメント
+agents.pyスクリプトが必要なリソースすべてのデプロイメントを処理します。スクリプトを実行する前に、必要なAWS権限があることを確認してください。
+本番環境へのデプロイメントでは、AWS CloudFormationまたはAWS CDKを使用してインフラストラクチャをコードとして管理することを検討してください。
+
+これが一瞬で作られるって、もしかしたらとんでもない時代が来たかもしれません…
+ちなみにですが、気に入らない場所があったら修正もしてくれるそうです。
+今回は Make change としてみます。
+
+ここでは自由記述で依頼できるそうです。
+先ほど作成してくれたドキュメントの中で、
+「Creating a Bedrock Agent with Custom Orchestration がわかりにくかったので、1つ1つの手順をよりわかりやすく、丁寧に説明してください」
+と依頼してみます。
+
+すると再び思考し…
+
+READMEがアップデートされました！
+
+変更箇所だけ抜き出してみます。
+更新された英語版(長いので折りたたんでいます)
+
+Creating a Bedrock Agent with Custom Orchestration
+The process of creating a Bedrock Agent with custom orchestration involves several steps, each handled by functions in the agents.py script. Here's a detailed breakdown of the process:
+
+
+Configure the agent settings:
+Open the agents.py script and modify the following variables at the top of the script:
+
+
+agent_name: Choose a unique name for your agent
+
+agent_description: Provide a brief description of your agent's purpose
+
+agent_foundation_model: Specify the foundation model to use (e.g., "anthropic.claude-v2")
+
+agent_instruction: Define the primary instruction for your agent
+
+custom_orchestration_lambda: Set to None if not using custom orchestration, or provide the Lambda function name if using custom orchestration
+
+
+
+Create a DynamoDB table:
+The script uses the create_dynamodb function to create a table for storing restaurant bookings. This table will be used by the booking Lambda function.
+create_dynamodb(table_name, 'booking_id')
+
+
+
+Create an IAM role for the Lambda function:
+The create_lambda_role function sets up an IAM role with the necessary permissions for the Lambda function to access DynamoDB and other required services.
+lambda_iam_role = create_lambda_role(agent_name)
+
+
+
+Create the booking Lambda function:
+The create_lambda function packages and deploys the Lambda function that handles booking operations.
+lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+
+
+
+(Optional) Create the custom orchestration Lambda function:
+If using custom orchestration, another Lambda function is created to handle the orchestration logic.
+custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+
+
+
+Create an IAM role for the Bedrock Agent:
+The script sets up an IAM role that allows the Bedrock Agent to invoke Lambda functions and access other necessary resources.
+
+
+Create the Bedrock Agent:
+The create_agent_object function is called to create the Bedrock Agent with the specified configuration, including custom orchestration if enabled.
+agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+
+
+
+Create an alias for the Bedrock Agent:
+An alias is created for the agent to make it easier to manage different versions.
+alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+
+
+
+Run the script:
+Execute the agents.py script to create all the necessary resources and the Bedrock Agent:
+python agents.py
+
+The script will output progress information and any errors encountered during the creation process.
+
+
+Verify the agent creation:
+After the script completes, you can verify the agent's creation in the AWS Console or by using the Bedrock Agent API.
+
+
+By following these steps, you'll create a Bedrock Agent with custom orchestration, including all the necessary AWS resources like DynamoDB tables, Lambda functions, and IAM roles. The agent will be ready to handle restaurant booking operations using the custom logic defined in the orchestration Lambda function.
+
+更新された日本語版(長いので折りたたんでいます)
+
+環境のセットアップ
+
+
+リポジトリをクローン：
+git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+
+
+
+必要なPythonパッケージをインストール：
+pip install boto3 opensearch-py retrying
+
+
+
+Bedrockエージェント、Lambda関数、DynamoDBテーブル、IAMロールの作成と管理に必要なAWS権限があることを確認してください。
+
+
+
+カスタムオーケストレーション付きBedrockエージェントの作成
+カスタムオーケストレーション付きBedrockエージェントの作成プロセスは、agents.pyスクリプト内の関数によって処理される複数のステップで構成されています。以下に詳細な手順を説明します：
+
+
+エージェント設定の構成：
+agents.pyスクリプトを開き、スクリプト上部の以下の変数を変更します：
+
+
+agent_name：エージェントの一意の名前を選択
+
+agent_description：エージェントの目的の簡単な説明
+
+agent_foundation_model：使用する基盤モデルを指定（例：「anthropic.claude-v2」）
+
+agent_instruction：エージェントの主要な指示を定義
+
+custom_orchestration_lambda：カスタムオーケストレーションを使用しない場合はNone、使用する場合はLambda関数名を指定
+
+
+
+DynamoDBテーブルの作成：
+スクリプトはcreate_dynamodb関数を使用してレストラン予約保存用のテーブルを作成します。このテーブルは予約Lambda関数によって使用されます。
+create_dynamodb(table_name, 'booking_id')
+
+
+
+Lambda関数用のIAMロールの作成：
+create_lambda_role関数は、Lambda関数がDynamoDBやその他の必要なサービスにアクセスするために必要な権限を持つIAMロールを設定します。
+lambda_iam_role = create_lambda_role(agent_name)
+
+
+
+予約Lambda関数の作成：
+create_lambda関数は、予約操作を処理するLambda関数をパッケージ化してデプロイします。
+lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+
+
+
+（オプション）カスタムオーケストレーションLambda関数の作成：
+カスタムオーケストレーションを使用する場合、オーケストレーションロジックを処理する別のLambda関数が作成されます。
+custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+
+
+
+BedrockエージェントのIAMロールの作成：
+スクリプトは、BedrockエージェントがLambda関数を呼び出し、他の必要なリソースにアクセスできるようにするIAMロールを設定します。
+
+
+Bedrockエージェントの作成：
+create_agent_object関数を呼び出して、カスタムオーケストレーション（有効な場合）を含む指定された設定でBedrockエージェントを作成します。
+agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+
+
+
+Bedrockエージェントのエイリアスの作成：
+異なるバージョンを簡単に管理できるように、エージェントのエイリアスを作成します。
+alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+
+
+
+スクリプトの実行：
+必要なリソースとBedrockエージェントを作成するために、agents.pyスクリプトを実行します：
+python agents.py
+
+スクリプトは作成プロセス中の進行状況とエラー（もしあれば）を出力します。
+
+
+エージェント作成の確認：
+スクリプトの完了後、AWSコンソールまたはBedrock Agent APIを使用してエージェントの作成を確認できます。
+
+
+これらの手順に従うことで、DynamoDBテーブル、Lambda関数、IAMロールなどの必要なAWSリソースを含む、カスタムオーケストレーション付きBedrockエージェントが作成されます。エージェントはオーケストレーションLambda関数で定義されたカスタムロジックを使用してレストラン予約操作を処理できる状態になります。
+
+め、めっちゃ詳細に解説してくれてる〜〜〜！！！
+ということでこれでOKでしょう！Accept します！
+
+あっさりとREADMEが完成しました！
+
+これを実際に試すのはまた別記事で！
+
+まとめ
+めちゃくちゃ簡単にREADMEを作成してくれました！
+ここまで来ると、最早こんなに簡単でいいのか？って感じです。
+技術的負債の解消に一役買ってくれそうな機能だと思います！
+あとは、もっと大規模で複雑なシステムになった時にどこまで正確に解釈して文字起こししてくれるか、でしょうか…
+今後の動向にも注目です！
+  Bedrockの新機能、カスタムオーケストレーションリポジトリが公式のGitHub上に存在するのですが、1つ問題点があります。 一切ドキュメントがない！！！READMEすらない！！！ 
+
+ しかもこの機能めちゃくちゃ難しく、さらにリポジトリを見ても何をどうすればいいかよくわからない。 だったらAmazon Q DeveloperにREADMEを作ってもらおうじゃないか！ということでやってみました！  2024年12月3日、Amazon Q Developerはソースコード内でドキュメントを生成できるようになりました。
+この機能によって、Amazon Q Developer Agentが手間のかかるドキュメント作成のタスクを処理するため、開発者はコードの作成と設計に集中できます。 
+
+ 他にも、ユニットテスト作成機能や、コードレビュー機能も追加されています。まとめてブログ化されていました。
+総じて、開発者がよりコーディングに集中できるような仕組みが整ってきています。 
+
+  Amazon Q Developerの機能の一部なので、この機能を使うからと言って特別追加で料金がかかることはありません。 Amazon Q Developerの料金形態としては、フリーティアとプロティアがあります。
+フリーはもちろん無料、プロは1ユーザーあたり19ドル/月です。 フリーでも月10回呼び出せるそうなので、お試しするくらいなら無料で使えそうですね！
+詳しくは↓ 
+
+  まずはVSCode上にリポジトリをクローンします。
+以下のコマンドをVSCodeのターミナルで叩きます。 git clone https://github.com/aws-samples/amazon-bedrock-samples.git
+ git clone https://github.com/aws-samples/amazon-bedrock-samples.git
+ こんな感じになればOKです。
+ 続いて、早速Amazon Q Developerの出番。 
+
+Amazon Q Developerのインストール手順については、以下のブログをご参照ください。
+https://blog.serverworks.co.jp/2024/07/26/174241
+
+  
+Amazon Q Developerのインストール手順については、以下のブログをご参照ください。
+https://blog.serverworks.co.jp/2024/07/26/174241
+ Amazon Q Developerのインストール手順については、以下のブログをご参照ください。
+https://blog.serverworks.co.jp/2024/07/26/174241 入力欄に「/(スラッシュ)」を打つと、Amazon Q Developerのどの機能を使うかが選べます。
+ 今回は /doc を選択し、エンターキーを押します。
+ すると、ドキュメント生成モードに移行します。
+始めるには、Create a README か Update an existing fREADME かを選びます。
+今回は前者を選択。
+ ClaudeHandsonディレクトリのREADMEは不要なので、Change folderを選択。
+ 今回はもちろん、カスタムオーケストレーションのフォルダーを選択します。
+ 再度確認されるので、Yes を選択。
+ すると、実行開始してくれます。
+実行手順としては、3段階あるようです。  数分待つと完了し、実際にREADMEが生成されていました！
+  This project demonstrates how to create and use a Bedrock Agent with custom orchestration for managing restaurant bookings. It showcases the integration of AWS services like Lambda, DynamoDB, and Amazon Bedrock to create an intelligent conversational agent. The custom orchestration feature allows for fine-grained control over the agent's behavior, enabling complex conversation flows and integration with external tools and services.     Clone the repository: git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+ git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+ Install required Python packages: pip install boto3 opensearch-py retrying
+ pip install boto3 opensearch-py retrying
+ Ensure you have the necessary AWS permissions to create and manage Bedrock agents, Lambda functions, DynamoDB tables, and IAM roles.  Modify the agents.py script to set your desired agent configuration: Run the agents.py script: python agents.py
+ python agents.py
+ The script will create:  Once the agent is created, you can interact with it using the Bedrock Agent Runtime API or through the AWS Console. The agent can handle restaurant booking operations such as: Example interaction: response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='I want to book a table for 4 people tomorrow at 7 PM'
+)
+print(response['completion'])
+ response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='I want to book a table for 4 people tomorrow at 7 PM'
+)
+print(response['completion'])
+ response = bedrock_agent_runtime_client . invoke_agent ( agentId = ' your-agent-id ' , agentAliasId = ' your-agent-alias-id ' , sessionId = ' unique-session-id ' , inputText = ' I want to book a table for 4 people tomorrow at 7 PM ' ) print ( response [ ' completion ' ])  User Input -> Bedrock Agent -> Custom Orchestrator -> Booking Lambda -> DynamoDB
+                    ^                    |
+                    |                    v
+                    User <---- Bedrock Agent <---- Custom Orchestrator
+ User Input -> Bedrock Agent -> Custom Orchestrator -> Booking Lambda -> DynamoDB
+                    ^                    |
+                    |                    v
+                    User <---- Bedrock Agent <---- Custom Orchestrator
+   The project uses the following AWS resources:  The agents.py script handles the deployment of all necessary resources. Ensure you have the required AWS permissions before running the script. For production deployments, consider using AWS CloudFormation or AWS CDK to manage the infrastructure as code.  このプロジェクトは、レストランの予約管理のためのカスタムオーケストレーション機能を持つBedrock Agentの作成方法と使用方法を示しています。Lambda、DynamoDB、Amazon BedrockなどのAWSサービスを統合して、インテリジェントな対話型エージェントを作成する方法を紹介します。 カスタムオーケストレーション機能により、エージェントの動作を細かく制御でき、複雑な会話フローと外部ツールやサービスとの統合を実現できます。     リポジトリをクローン： git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+ git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+ 必要なPythonパッケージをインストール： pip install boto3 opensearch-py retrying
+ pip install boto3 opensearch-py retrying
+ Bedrockエージェント、Lambda関数、DynamoDBテーブル、IAMロールを作成および管理するための必要なAWS権限があることを確認してください。  agents.pyスクリプトを以下の設定で変更： agents.pyスクリプトを実行： python agents.py
+ python agents.py
+ スクリプトは以下を作成します：  エージェントが作成されたら、Bedrock Agent Runtime APIまたはAWSコンソールを使用して対話できます。エージェントは以下のようなレストラン予約操作を処理できます： 対話例： response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='明日の午後7時に4人で予約したいです'
+)
+print(response['completion'])
+ response = bedrock_agent_runtime_client.invoke_agent(
+    agentId='your-agent-id',
+    agentAliasId='your-agent-alias-id',
+    sessionId='unique-session-id',
+    inputText='明日の午後7時に4人で予約したいです'
+)
+print(response['completion'])
+ response = bedrock_agent_runtime_client . invoke_agent ( agentId = ' your-agent-id ' , agentAliasId = ' your-agent-alias-id ' , sessionId = ' unique-session-id ' , inputText = ' 明日の午後7時に4人で予約したいです ' ) print ( response [ ' completion ' ])  ユーザー入力 -> Bedrockエージェント -> カスタムオーケストレーター -> 予約Lambda -> DynamoDB
+                     ^                    |
+                     |                    v
+                     ユーザー <---- Bedrockエージェント <---- カスタムオーケストレーター
+ ユーザー入力 -> Bedrockエージェント -> カスタムオーケストレーター -> 予約Lambda -> DynamoDB
+                     ^                    |
+                     |                    v
+                     ユーザー <---- Bedrockエージェント <---- カスタムオーケストレーター
+   このプロジェクトは以下のAWSリソースを使用します：  agents.pyスクリプトが必要なリソースすべてのデプロイメントを処理します。スクリプトを実行する前に、必要なAWS権限があることを確認してください。 本番環境へのデプロイメントでは、AWS CloudFormationまたはAWS CDKを使用してインフラストラクチャをコードとして管理することを検討してください。 これが一瞬で作られるって、もしかしたらとんでもない時代が来たかもしれません… ちなみにですが、気に入らない場所があったら修正もしてくれるそうです。
+今回は Make change としてみます。
+ ここでは自由記述で依頼できるそうです。
+先ほど作成してくれたドキュメントの中で、
+「Creating a Bedrock Agent with Custom Orchestration がわかりにくかったので、1つ1つの手順をよりわかりやすく、丁寧に説明してください」
+と依頼してみます。
+ すると再び思考し…
+ READMEがアップデートされました！
+ 変更箇所だけ抜き出してみます。  The process of creating a Bedrock Agent with custom orchestration involves several steps, each handled by functions in the agents.py script. Here's a detailed breakdown of the process: Configure the agent settings:
+Open the agents.py script and modify the following variables at the top of the script: Create a DynamoDB table:
+The script uses the create_dynamodb function to create a table for storing restaurant bookings. This table will be used by the booking Lambda function. create_dynamodb(table_name, 'booking_id')
+ create_dynamodb(table_name, 'booking_id')
+ create_dynamodb ( table_name , ' booking_id ' ) Create an IAM role for the Lambda function:
+The create_lambda_role function sets up an IAM role with the necessary permissions for the Lambda function to access DynamoDB and other required services. lambda_iam_role = create_lambda_role(agent_name)
+ lambda_iam_role = create_lambda_role(agent_name)
+ lambda_iam_role = create_lambda_role ( agent_name ) Create the booking Lambda function:
+The create_lambda function packages and deploys the Lambda function that handles booking operations. lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+ lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+ lambda_function = create_lambda ( lambda_function_name , ' lambda_function.py ' , lambda_iam_role , environment = { ' Variables ' : { ' booking_table_name ' : table_name }} ) (Optional) Create the custom orchestration Lambda function:
+If using custom orchestration, another Lambda function is created to handle the orchestration logic. custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+ custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+ custom_orchestration_lambda = create_lambda ( custom_orchestration_lambda_name , ' lambda_rewoo.py ' , lambda_iam_role ) Create an IAM role for the Bedrock Agent:
+The script sets up an IAM role that allows the Bedrock Agent to invoke Lambda functions and access other necessary resources. Create the Bedrock Agent:
+The create_agent_object function is called to create the Bedrock Agent with the specified configuration, including custom orchestration if enabled. agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+ agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+ agent_id = create_agent_object ( agent_name , agent_role , agent_description , idle_session_ttl_in_seconds , agent_foundation_model , agent_instruction , custom_orchestration_lambda , None ) Create an alias for the Bedrock Agent:
+An alias is created for the agent to make it easier to manage different versions. alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+ alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+ alias_id = bedrock_agent_client . create_agent_alias ( agentId = agent_id , agentAliasName = f ' { agent_name } -alias ' )[ ' agentAlias ' ][ ' agentAliasId ' ] Run the script:
+Execute the agents.py script to create all the necessary resources and the Bedrock Agent: python agents.py
+ python agents.py
+ The script will output progress information and any errors encountered during the creation process. Verify the agent creation:
+After the script completes, you can verify the agent's creation in the AWS Console or by using the Bedrock Agent API. By following these steps, you'll create a Bedrock Agent with custom orchestration, including all the necessary AWS resources like DynamoDB tables, Lambda functions, and IAM roles. The agent will be ready to handle restaurant booking operations using the custom logic defined in the orchestration Lambda function.  リポジトリをクローン： git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+ git clone <repository-url>
+cd amazon-bedrock-samples/agents-and-function-calling/bedrock-agents/features-examples/14-create-agent-with-custom-orchestration
+ 必要なPythonパッケージをインストール： pip install boto3 opensearch-py retrying
+ pip install boto3 opensearch-py retrying
+ Bedrockエージェント、Lambda関数、DynamoDBテーブル、IAMロールの作成と管理に必要なAWS権限があることを確認してください。  カスタムオーケストレーション付きBedrockエージェントの作成プロセスは、agents.pyスクリプト内の関数によって処理される複数のステップで構成されています。以下に詳細な手順を説明します： エージェント設定の構成：
+agents.pyスクリプトを開き、スクリプト上部の以下の変数を変更します： DynamoDBテーブルの作成：
+スクリプトはcreate_dynamodb関数を使用してレストラン予約保存用のテーブルを作成します。このテーブルは予約Lambda関数によって使用されます。 create_dynamodb(table_name, 'booking_id')
+ create_dynamodb(table_name, 'booking_id')
+ create_dynamodb ( table_name , ' booking_id ' ) Lambda関数用のIAMロールの作成：
+create_lambda_role関数は、Lambda関数がDynamoDBやその他の必要なサービスにアクセスするために必要な権限を持つIAMロールを設定します。 lambda_iam_role = create_lambda_role(agent_name)
+ lambda_iam_role = create_lambda_role(agent_name)
+ lambda_iam_role = create_lambda_role ( agent_name ) 予約Lambda関数の作成：
+create_lambda関数は、予約操作を処理するLambda関数をパッケージ化してデプロイします。 lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+ lambda_function = create_lambda(
+    lambda_function_name,
+    'lambda_function.py',
+    lambda_iam_role,
+    environment={'Variables': {'booking_table_name': table_name}}
+)
+ lambda_function = create_lambda ( lambda_function_name , ' lambda_function.py ' , lambda_iam_role , environment = { ' Variables ' : { ' booking_table_name ' : table_name }} ) （オプション）カスタムオーケストレーションLambda関数の作成：
+カスタムオーケストレーションを使用する場合、オーケストレーションロジックを処理する別のLambda関数が作成されます。 custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+ custom_orchestration_lambda = create_lambda(
+    custom_orchestration_lambda_name,
+    'lambda_rewoo.py',
+    lambda_iam_role
+)
+ custom_orchestration_lambda = create_lambda ( custom_orchestration_lambda_name , ' lambda_rewoo.py ' , lambda_iam_role ) BedrockエージェントのIAMロールの作成：
+スクリプトは、BedrockエージェントがLambda関数を呼び出し、他の必要なリソースにアクセスできるようにするIAMロールを設定します。 Bedrockエージェントの作成：
+create_agent_object関数を呼び出して、カスタムオーケストレーション（有効な場合）を含む指定された設定でBedrockエージェントを作成します。 agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+ agent_id = create_agent_object(
+    agent_name, agent_role, agent_description,
+    idle_session_ttl_in_seconds, agent_foundation_model,
+    agent_instruction, custom_orchestration_lambda, None
+)
+ agent_id = create_agent_object ( agent_name , agent_role , agent_description , idle_session_ttl_in_seconds , agent_foundation_model , agent_instruction , custom_orchestration_lambda , None ) Bedrockエージェントのエイリアスの作成：
+異なるバージョンを簡単に管理できるように、エージェントのエイリアスを作成します。 alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+ alias_id = bedrock_agent_client.create_agent_alias(
+    agentId=agent_id,
+    agentAliasName=f'{agent_name}-alias'
+)['agentAlias']['agentAliasId']
+ alias_id = bedrock_agent_client . create_agent_alias ( agentId = agent_id , agentAliasName = f ' { agent_name } -alias ' )[ ' agentAlias ' ][ ' agentAliasId ' ] スクリプトの実行：
+必要なリソースとBedrockエージェントを作成するために、agents.pyスクリプトを実行します： python agents.py
+ python agents.py
+ スクリプトは作成プロセス中の進行状況とエラー（もしあれば）を出力します。 エージェント作成の確認：
+スクリプトの完了後、AWSコンソールまたはBedrock Agent APIを使用してエージェントの作成を確認できます。 これらの手順に従うことで、DynamoDBテーブル、Lambda関数、IAMロールなどの必要なAWSリソースを含む、カスタムオーケストレーション付きBedrockエージェントが作成されます。エージェントはオーケストレーションLambda関数で定義されたカスタムロジックを使用してレストラン予約操作を処理できる状態になります。 め、めっちゃ詳細に解説してくれてる〜〜〜！！！ ということでこれでOKでしょう！Accept します！
+ あっさりとREADMEが完成しました！
+ これを実際に試すのはまた別記事で！  めちゃくちゃ簡単にREADMEを作成してくれました！
+ここまで来ると、最早こんなに簡単でいいのか？って感じです。 技術的負債の解消に一役買ってくれそうな機能だと思います！
+あとは、もっと大規模で複雑なシステムになった時にどこまで正確に解釈して文字起こししてくれるか、でしょうか… 今後の動向にも注目です！ 1Go to list of users who liked0comment0Go to list of comments 1Go to list of users who liked0comment0Go to list of comments 1Go to list of users who liked  1Go to list of users who liked 1Go to list of users who liked Go to list of users who liked 0 0 comment0Go to list of comments comment Go to list of comments  Register as a new user and use Qiita more convenientlyYou get articles that match your needsYou can efficiently read back useful informationYou can use dark themeWhat you can do with signing upSign upLogin Register as a new user and use Qiita more conveniently Sign upLogin
+
+URL: https://qiita.com/yoshimi0227/items/336d2d1d9cd50c050754
+NRI OpenStandiaAdvent Calendar 2024Day 10@yoshimi0227in株式会社野村総合研究所[検証] Amazon Q Developerのドキュメント＆ユニットテスト自動生成機能はどこまで手動作成クオリティに近づくのかJavaAWSunittestdocumentationAmazonQLast updated at 2024-12-10Posted at 2024-12-09 NRI OpenStandiaAdvent Calendar 2024 NRI OpenStandia Advent Calendar 2024 Day 10 @yoshimi0227in株式会社野村総合研究所 @yoshimi0227in株式会社野村総合研究所  in株式会社野村総合研究所 in 株式会社野村総合研究所 Last updated at 2024-12-10Posted at 2024-12-09 Last updated at 2024-12-10 Posted at 2024-12-09 
+はじめに
+こちらはNRI OpenStandia Advent Calendar 2024の10日目の記事です。
+AWS re:Invent 2024にて、Amazon Q Developerのアップデートとして「コードに基づいたドキュメント自動生成」機能と「コードに基づいたユニットテスト自動生成」機能が発表されました。
+
+
+
+
+
+
+Amazon Q Developerは、AWS社のコードやドキュメントをもとに学習が行われています。つまり、「自動生成されるドキュメント」と「自動生成されるユニットテスト」はAWS本家が手動作成しているドキュメントやユニットテストと同じようなクオリティになるのではないでしょうか。
+そこで、今回はAWS社から出しているOSSを題材として、どのようなドキュメントやユニットテストが自動生成されていくかを見ていこうと思います。
+
+Amazon Q Developerとは
+Amazon Q Developerは運用開発者がVSCodeやIntelliJ等のコードエディタを用いてコーディングする際に、生成AIによるアシストをしてくれるツールです。
+アシスト例はこちらです。
+
+コーディング時に、リアルタイムでコードを補完
+チャット上で自然言語（例：日本語、英語）を用いてQA回答
+
+/devコマンドをトリガーとして、リアルタイムで実装コードを提案
+
+/transformコマンドをトリガーとして、Javaのレガシーコードのアップデート方法を提示
+
+/reviewコマンドをトリガーとして、コードレビュー機能にて脆弱性やリスクを特定し、緩和策も提示
+
+/docコマンドをトリガーとして、ドキュメントを自動生成（※本記事での検証１）
+
+/testコマンドをトリガーとして、ユニットテストを自動生成（※本記事の検証２）
+
+
+検証
+
+検証に用いるAWS本家のソースコード
+Java検証用にServerless Java container、Python検証用にaws-cliをピックアップしました。
+
+
+
+
+
+
+
+検証方法
+
+該当コードをcloneします
+自動生成する予定のファイルを全部削除します
+
+検証1：README、フォルダ内に存在するドキュメント（例：docフォルダ配下すべて）
+検証2：フォルダ内に存在するテスト（例：testフォルダ配下すべて）
+
+
+
+/docコマンド or /testコマンドを実行します
+
+
+/docコマンドはコマンドを叩いたあとにREADMEを自動生成したいリポジトリを選択します
+
+/testコマンドはユニットテストを自動作成したいファイルをあらかじめアクティブ状態にしてからコマンドを叩く必要があります
+
+
+
+
+検証1：/docコマンドをトリガーとして、ドキュメントを自動生成
+
+Serverless Java containerの検証結果
+Serverless Java containerの実行結果はこちらです。公式のREADMEとは異なる全く異なるアウトプットであることから、「Amazon Q Developerは過学習していない（個別最適化されないように、大量のデータを学習している）」ということがわかります。
+
+中身を詳しく見ていきます。まずREADMEの目次構成は下記のようになっていました。READMEの構成として、存在すると便利な項目が綺麗に並んでおり、READMEとしての有用性が高くなっております。
+
+README.md の目次構成
+AWS Serverless Java Container（タイトル）
+├　Repository Structure（リポジトリ内のモジュール構成）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Getting Started（インストール後の使い方）
+│├　Configuration（使う際の設定について）
+│├　Common Use Cases（主なユースケース）
+│├　Testing（テスト実行方法）
+│└　Troubleshooting（トラブルシューティング）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイ方法）
+└　Infrastructure（インフラ構成）
+
+
+それぞれの項目も、コマンドベースで丁寧に記載がされていました。また、内容もおおむね「一般的に正しいことが多い」回答となっておりました。
+例えば、トラブルシューティングの章は一般的な対応方法が記載されています。インストールの章も同じくです。
+なお、インストールバージョンに関しては、「Prerequisites」で指定されているバージョンよりも古いバージョン（例：Java17）も本OSSは利用可能と思われます。と言いますのも、本OSSはgithubのワークフロー設定（.github/workflows/continuous-integration-workflow.yml）にてJava17を指定しています。
+ただ最新LTSであるJava21を推奨しているのは個人的には悪くないと思います。アシスタントする生成AI側で明確に推奨バージョンを判別できない場合、一般的には新しいLTSを使う方が推奨されるため、回答として「明確な」間違いとなる可能性が低いためです。
+
+README.md（一部抜粋：Installation）
+### Installation
+
+Prerequisites:
+- Java 21 or later
+- Maven 3.6.3 or later
+- AWS CLI configured with appropriate credentials
+
+To install the AWS Serverless Java Container, clone the repository and build the project:
+
+---
+git clone https://github.com/aws/serverless-java-container.git
+cd serverless-java-container
+mvn clean install
+---
+
+
+
+README.md（一部抜粋：Troubleshooting）
+### Troubleshooting
+
+Common issues and solutions:
+
+1. ClassNotFoundException:
+   - Ensure all dependencies are correctly specified in your `pom.xml` file.
+   - Check that the `Handler` property in your `template.yml` file points to the correct class.
+
+2. API Gateway errors:
+   - Verify that your API routes are correctly defined in your application code.
+   - Check the CloudWatch logs for your Lambda function for any error messages.
+
+3. Performance issues:
+   - Consider using the `async` initialization option for faster cold starts.
+   - Optimize your application code and reduce the number of dependencies.
+
+
+
+aws-cliの検証結果
+もう一つの検証対象であるaws-cliも見ていきます。READMEの目次構成は下記の通りです。
+この目次は、Serverless Java containerのREADME自動生成の結果と完全一致はしていないものの、かなり似ております。このことから、裏側で動いている生成AI側である程度READMEの目次フォーマットを決めていることが推測できます。
+
+README.md の目次構成
+AWS Command Line Interface (CLI)（タイトル）
+├　Repository Structure（リポジトリ内のフォルダ構成、主要なファイル）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Configuration（使う際の設定について）
+│├　Basic Usage（インストール後の基本的な使い方）
+│└　Getting Help（使い方のヘルプコマンド）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイされている形式）
+├　Infrastructure（インフラ構成）
+├　Testing & Quality（テスト方法）
+├　Troubleshooting（トラブルシューティング）
+└　Performance Optimization（パフォーマンスの最適化）
+
+
+記載内容もおおむね正しいです。Repository Structureは検証のためにdocフォルダを削除しているためそれが記載されていないのは想定通りです。ドキュメント以外のフォルダは主要なものを問題なくピックアップできております。（awscliフォルダ配下にtopicsフォルダがあることを紹介できておりませんが、これは後述する「READMEの修正」で修正可能な範囲です。）
+
+README.md（一部抜粋：Repository Structure）
+## Repository Structure
+
+The repository is organized as follows:
+
+- `aws-cli/`: Main directory containing the AWS CLI source code
+  - `awscli/`: Core AWS CLI implementation
+    - `customizations/`: Custom commands and behaviors for specific AWS services
+    - `data/`: Configuration data files
+    - `examples/`: Example files and templates
+  - `bin/`: Executable scripts
+  - `scripts/`: Utility scripts for development and testing
+  - `tests/`: Test suite for the AWS CLI
+
+Key Files:
+- `aws-cli/awscli/__main__.py`: Entry point for the AWS CLI
+- `aws-cli/awscli/clidriver.py`: Main driver for the CLI functionality
+- `aws-cli/setup.py`: Setup script for installing the AWS CLI
+
+
+また、InstallationにおいてPythonのバージョンが3.8以上である必要があることは、setup.pyの記載とも一致します。
+
+
+README.md（一部抜粋：Installation）
+### Installation
+
+1. Ensure you have Python 3.8 or later installed.
+2. Install the AWS CLI using pip:
+
+---
+pip install awscli
+---
+
+
+実際のところは、aws-cliのインストール方法は多岐にわたります。これらの情報も加味するには、別途手動で追加することになりそうです。
+なお、ここまで初回生成のREADMEを見ていきましたが、このREADMEはプロンプト指示をだすことによる修正が可能です。
+例えば、セクションの追加や削除、特定の文章自体の修正が可能です。この際、変更したいセクションや追加削除したいコンテンツ、文章の修正方針は明確に記述する必要があります。また、参照する必要があるものは、参照先がコードである必要があります。
+また、READMEをより良いものとするためにAWS公式からベストプラクティスが提供されています。
+https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/doc-generation-best-practices.html
+
+検証2：/testコマンドをトリガーとして、ユニットテストを自動生成
+/testコマンドを実行すると下記のような画面を見ることができます。なお、2024/12現在はJavaとPythonのみが対応となっております。ここでは文量の都合でaws-cliの検証結果のみ紹介します。
+
+
+aws-cliの検証結果
+下記ファイルの単体テストを行いました。
+https://github.com/aws/aws-cli/blob/develop/awscli/customizations/s3/fileinfo.py
+該当ファイルには、下記4つのメソッドがあります。
+
+__init__(self, src, dest, compare_key, size, last_update, src_type, dest_type, operation_name, client, parameters, source_client, is_stream, associated_response_data)
+is_glacier_compatible(self)
+_is_glacier_object(self, response_data)
+_is_restored(self, response_data)
+
+生成されたテストケース一覧は下記の通りです。対象メソッド1つ1つに対して、正常ケースだけでなく異常ケースもしっかり検討されており、パターンも多く揃っております。（※番号1と3でまったく同じで何も記載のないテストが生成されていますが、この程度の余分なテストは削除する手間もたいしてないので、問題ないかと思っております。）
+
+
+
+＃
+テストメソッド
+テストの説明
+テスト対象メソッド
+
+
+
+
+1
+test__is_glacier_object_1
+既存のテスト（変更なし）
+_is_glacier_object
+
+
+2
+test__is_glacier_object_2
+非Glacierオブジェクトの場合にFalseを返すことをテスト
+_is_glacier_object
+
+
+3
+test__is_glacier_object_3
+既存のテスト（変更なし）
+_is_glacier_object
+
+
+4
+test__is_restored_with_case_sensitive_restore_value
+大文字小文字を区別するRestore値でのテスト
+_is_restored
+
+
+5
+test__is_restored_with_empty_input
+空の入力での_is_restoredメソッドのテスト
+_is_restored
+
+
+6
+test__is_restored_with_empty_restore_value
+空のRestore値での_is_restoredメソッドのテスト
+_is_restored
+
+
+7
+test__is_restored_with_incorrect_type
+不正な入力タイプでの_is_restoredメソッドのテスト
+_is_restored
+
+
+8
+test__is_restored_with_invalid_restore_value
+無効なRestore値での_is_restoredメソッドのテスト
+_is_restored
+
+
+9
+test__is_restored_with_missing_restore_key
+Restoreキーが欠落している場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+10
+test__is_restored_with_none_input
+None入力での_is_restoredメソッドのテスト
+_is_restored
+
+
+11
+test__is_restored_with_ongoing_request
+進行中のリクエストでの_is_restoredメソッドのテスト
+_is_restored
+
+
+12
+test__is_restored_with_partial_restore_value
+部分的なRestore値での_is_restoredメソッドのテスト
+_is_restored
+
+
+13
+test_init_with_all_parameters
+すべてのパラメータを指定してFileInfoを初期化するテスト
+__init__
+
+
+14
+test_init_with_default_parameters
+デフォルトパラメータでのFileInfo初期化テスト
+__init__
+
+
+15
+test_init_with_empty_src
+空のsrcパラメータでの初期化テスト
+__init__
+
+
+16
+test_init_with_invalid_associated_response_data
+無効なassociated_response_dataでの初期化テスト
+__init__
+
+
+17
+test_init_with_invalid_dest_type
+無効なdest_typeパラメータでの初期化テスト
+__init__
+
+
+18
+test_init_with_invalid_is_stream
+無効なis_streamパラメータでの初期化テスト
+__init__
+
+
+19
+test_init_with_invalid_last_update
+無効なlast_updateパラメータでの初期化テスト
+__init__
+
+
+20
+test_init_with_invalid_operation_name
+無効なoperation_nameパラメータでの初期化テスト
+__init__
+
+
+21
+test_init_with_invalid_parameters_type
+無効なparameters型での初期化テスト
+__init__
+
+
+22
+test_init_with_invalid_src_type
+無効なsrc_typeパラメータでの初期化テスト
+__init__
+
+
+23
+test_init_with_negative_size
+負のsizeパラメータでの初期化テスト
+__init__
+
+
+24
+test_init_with_parameters
+パラメータを指定してFileInfoを初期化するテスト
+__init__
+
+
+25
+test_is_glacier_compatible_1
+Glacierオブジェクトのダウンロード操作の互換性テスト
+is_glacier_compatible
+
+
+26
+test_is_glacier_compatible_3
+Glacierオブジェクトの削除操作の互換性テスト
+is_glacier_compatible
+
+
+27
+test_is_glacier_compatible_deep_archive_object
+Deep Archiveオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+28
+test_is_glacier_compatible_glacier_object_copy
+Glacierオブジェクトのコピー操作の互換性テスト
+is_glacier_compatible
+
+
+29
+test_is_glacier_compatible_glacier_object_download
+Glacierオブジェクトのダウンロード操作の互換性テスト
+is_glacier_compatible
+
+
+30
+test_is_glacier_compatible_glacier_object_move_local_source
+ローカルソースのGlacierオブジェクトの移動操作の互換性テスト
+is_glacier_compatible
+
+
+31
+test_is_glacier_compatible_glacier_object_move_s3_source
+S3ソースのGlacierオブジェクトの移動操作の互換性テスト
+is_glacier_compatible
+
+
+32
+test_is_glacier_compatible_glacier_upload
+Glacierオブジェクトのアップロード操作の互換性テスト
+is_glacier_compatible
+
+
+33
+test_is_glacier_compatible_invalid_storage_class
+無効なストレージクラスでの互換性テスト
+is_glacier_compatible
+
+
+34
+test_is_glacier_compatible_move_from_s3_glacier
+S3 Glacierからの移動操作の互換性テスト
+is_glacier_compatible
+
+
+35
+test_is_glacier_compatible_no_associated_response_data
+関連レスポンスデータがない場合の互換性テスト
+is_glacier_compatible
+
+
+36
+test_is_glacier_compatible_non_glacier_object
+非Glacierオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+37
+test_is_glacier_compatible_non_glacier_object_2
+別の非Glacierオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+38
+test_is_glacier_compatible_restored_glacier_object
+復元されたGlacierオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+39
+test_is_glacier_object_case_sensitivity
+ストレージクラスの大文字小文字の区別テスト
+_is_glacier_object
+
+
+40
+test_is_glacier_object_copy_operation
+Glacierオブジェクトのコピー操作のテスト
+_is_glacier_object
+
+
+41
+test_is_glacier_object_deep_archive
+Deep Archiveストレージクラスの判定テスト
+_is_glacier_object
+
+
+42
+test_is_glacier_object_empty_input
+空の入力での_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+43
+test_is_glacier_object_incorrect_type
+不正な入力タイプでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+44
+test_is_glacier_object_invalid_storage_class
+無効なストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+45
+test_is_glacier_object_missing_storage_class
+ストレージクラスが欠落している場合の_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+46
+test_is_glacier_object_restored_glacier
+復元されたGlacierオブジェクトの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+47
+test_is_glacier_object_returns_false_for_empty_response_data
+空のレスポンスデータでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+48
+test_is_glacier_object_returns_false_for_non_glacier_storage_class
+非Glacierストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+49
+test_is_glacier_object_returns_false_for_none_response_data
+Noneレスポンスデータでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+50
+test_is_glacier_object_returns_false_for_restored_glacier_object
+復元されたGlacierオブジェクトでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+51
+test_is_glacier_object_returns_true_for_deep_archive_storage_class
+Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+52
+test_is_glacier_object_returns_true_for_glacier_storage_class
+Glacierストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+53
+test_is_glacier_object_with_no_response_data
+レスポンスデータがない場合の_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+54
+test_is_restored_when_object_is_not_restored
+オブジェクトが復元されていない場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+55
+test_is_restored_when_object_is_restored
+オブジェクトが復元された場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+56
+test_is_restored_when_restore_info_is_missing
+復元情報が欠落している場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+
+テストメソッドを一部抜粋します。こちらの中身のロジックも問題なさそうです。
+
+test_fileinfo.py（一部抜粋：6 空のRestore値での_is_restoredメソッドのテスト）
+    def test__is_restored_with_empty_restore_value(self):
+        """
+        Test _is_restored method with empty Restore value
+        """
+        file_info = FileInfo(src='test')
+        response_data = {'Restore': ''}
+        assert not file_info._is_restored(response_data)
+
+
+
+test_fileinfo.py（一部抜粋：51 Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト）
+    def test_is_glacier_object_returns_true_for_deep_archive_storage_class(self):
+        """
+        Test that _is_glacier_object returns True for a DEEP_ARCHIVE storage class
+        that is not restored.
+        """
+        file_info = FileInfo(src='dummy_src')
+        response_data = {
+            'StorageClass': 'DEEP_ARCHIVE',
+            'Restore': 'ongoing-request="true"'
+        }
+        
+        result = file_info._is_glacier_object(response_data)
+        
+        assert result == True
+
+
+なお、本家のtest_fileinfo.pyファイルは下記の通りです。本家のユニットテストコードはより見やすいですね。とはいえ自動生成も健闘しているとは思うので、さらなる発展を期待します。
+https://github.com/aws/aws-cli/blob/develop/tests/unit/customizations/s3/test_fileinfo.py
+
+さいごに
+予想よりもドキュメント自動作成、ユニットテスト自動生成のクオリティが高かったため、活用できる箇所にはぜひ活用していきたいなと思いました。
+また、ドキュメント自動生成にはサービスクォータがありますのでご注意ください！
+
+
+（参考）サービスクォータ
+
+既存のREADMEの最大サイズ：15KB
+READMEを作成するプロジェクトに格納されているコードサイズ：200MB（非圧縮の場合）、50MB（圧縮の場合）
+タスクごとのドキュメント生成数：3
+
+
+
+ 
+はじめに
+こちらはNRI OpenStandia Advent Calendar 2024の10日目の記事です。
+AWS re:Invent 2024にて、Amazon Q Developerのアップデートとして「コードに基づいたドキュメント自動生成」機能と「コードに基づいたユニットテスト自動生成」機能が発表されました。
+
+
+
+
+
+
+Amazon Q Developerは、AWS社のコードやドキュメントをもとに学習が行われています。つまり、「自動生成されるドキュメント」と「自動生成されるユニットテスト」はAWS本家が手動作成しているドキュメントやユニットテストと同じようなクオリティになるのではないでしょうか。
+そこで、今回はAWS社から出しているOSSを題材として、どのようなドキュメントやユニットテストが自動生成されていくかを見ていこうと思います。
+
+Amazon Q Developerとは
+Amazon Q Developerは運用開発者がVSCodeやIntelliJ等のコードエディタを用いてコーディングする際に、生成AIによるアシストをしてくれるツールです。
+アシスト例はこちらです。
+
+コーディング時に、リアルタイムでコードを補完
+チャット上で自然言語（例：日本語、英語）を用いてQA回答
+
+/devコマンドをトリガーとして、リアルタイムで実装コードを提案
+
+/transformコマンドをトリガーとして、Javaのレガシーコードのアップデート方法を提示
+
+/reviewコマンドをトリガーとして、コードレビュー機能にて脆弱性やリスクを特定し、緩和策も提示
+
+/docコマンドをトリガーとして、ドキュメントを自動生成（※本記事での検証１）
+
+/testコマンドをトリガーとして、ユニットテストを自動生成（※本記事の検証２）
+
+
+検証
+
+検証に用いるAWS本家のソースコード
+Java検証用にServerless Java container、Python検証用にaws-cliをピックアップしました。
+
+
+
+
+
+
+
+検証方法
+
+該当コードをcloneします
+自動生成する予定のファイルを全部削除します
+
+検証1：README、フォルダ内に存在するドキュメント（例：docフォルダ配下すべて）
+検証2：フォルダ内に存在するテスト（例：testフォルダ配下すべて）
+
+
+
+/docコマンド or /testコマンドを実行します
+
+
+/docコマンドはコマンドを叩いたあとにREADMEを自動生成したいリポジトリを選択します
+
+/testコマンドはユニットテストを自動作成したいファイルをあらかじめアクティブ状態にしてからコマンドを叩く必要があります
+
+
+
+
+検証1：/docコマンドをトリガーとして、ドキュメントを自動生成
+
+Serverless Java containerの検証結果
+Serverless Java containerの実行結果はこちらです。公式のREADMEとは異なる全く異なるアウトプットであることから、「Amazon Q Developerは過学習していない（個別最適化されないように、大量のデータを学習している）」ということがわかります。
+
+中身を詳しく見ていきます。まずREADMEの目次構成は下記のようになっていました。READMEの構成として、存在すると便利な項目が綺麗に並んでおり、READMEとしての有用性が高くなっております。
+
+README.md の目次構成
+AWS Serverless Java Container（タイトル）
+├　Repository Structure（リポジトリ内のモジュール構成）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Getting Started（インストール後の使い方）
+│├　Configuration（使う際の設定について）
+│├　Common Use Cases（主なユースケース）
+│├　Testing（テスト実行方法）
+│└　Troubleshooting（トラブルシューティング）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイ方法）
+└　Infrastructure（インフラ構成）
+
+
+それぞれの項目も、コマンドベースで丁寧に記載がされていました。また、内容もおおむね「一般的に正しいことが多い」回答となっておりました。
+例えば、トラブルシューティングの章は一般的な対応方法が記載されています。インストールの章も同じくです。
+なお、インストールバージョンに関しては、「Prerequisites」で指定されているバージョンよりも古いバージョン（例：Java17）も本OSSは利用可能と思われます。と言いますのも、本OSSはgithubのワークフロー設定（.github/workflows/continuous-integration-workflow.yml）にてJava17を指定しています。
+ただ最新LTSであるJava21を推奨しているのは個人的には悪くないと思います。アシスタントする生成AI側で明確に推奨バージョンを判別できない場合、一般的には新しいLTSを使う方が推奨されるため、回答として「明確な」間違いとなる可能性が低いためです。
+
+README.md（一部抜粋：Installation）
+### Installation
+
+Prerequisites:
+- Java 21 or later
+- Maven 3.6.3 or later
+- AWS CLI configured with appropriate credentials
+
+To install the AWS Serverless Java Container, clone the repository and build the project:
+
+---
+git clone https://github.com/aws/serverless-java-container.git
+cd serverless-java-container
+mvn clean install
+---
+
+
+
+README.md（一部抜粋：Troubleshooting）
+### Troubleshooting
+
+Common issues and solutions:
+
+1. ClassNotFoundException:
+   - Ensure all dependencies are correctly specified in your `pom.xml` file.
+   - Check that the `Handler` property in your `template.yml` file points to the correct class.
+
+2. API Gateway errors:
+   - Verify that your API routes are correctly defined in your application code.
+   - Check the CloudWatch logs for your Lambda function for any error messages.
+
+3. Performance issues:
+   - Consider using the `async` initialization option for faster cold starts.
+   - Optimize your application code and reduce the number of dependencies.
+
+
+
+aws-cliの検証結果
+もう一つの検証対象であるaws-cliも見ていきます。READMEの目次構成は下記の通りです。
+この目次は、Serverless Java containerのREADME自動生成の結果と完全一致はしていないものの、かなり似ております。このことから、裏側で動いている生成AI側である程度READMEの目次フォーマットを決めていることが推測できます。
+
+README.md の目次構成
+AWS Command Line Interface (CLI)（タイトル）
+├　Repository Structure（リポジトリ内のフォルダ構成、主要なファイル）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Configuration（使う際の設定について）
+│├　Basic Usage（インストール後の基本的な使い方）
+│└　Getting Help（使い方のヘルプコマンド）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイされている形式）
+├　Infrastructure（インフラ構成）
+├　Testing & Quality（テスト方法）
+├　Troubleshooting（トラブルシューティング）
+└　Performance Optimization（パフォーマンスの最適化）
+
+
+記載内容もおおむね正しいです。Repository Structureは検証のためにdocフォルダを削除しているためそれが記載されていないのは想定通りです。ドキュメント以外のフォルダは主要なものを問題なくピックアップできております。（awscliフォルダ配下にtopicsフォルダがあることを紹介できておりませんが、これは後述する「READMEの修正」で修正可能な範囲です。）
+
+README.md（一部抜粋：Repository Structure）
+## Repository Structure
+
+The repository is organized as follows:
+
+- `aws-cli/`: Main directory containing the AWS CLI source code
+  - `awscli/`: Core AWS CLI implementation
+    - `customizations/`: Custom commands and behaviors for specific AWS services
+    - `data/`: Configuration data files
+    - `examples/`: Example files and templates
+  - `bin/`: Executable scripts
+  - `scripts/`: Utility scripts for development and testing
+  - `tests/`: Test suite for the AWS CLI
+
+Key Files:
+- `aws-cli/awscli/__main__.py`: Entry point for the AWS CLI
+- `aws-cli/awscli/clidriver.py`: Main driver for the CLI functionality
+- `aws-cli/setup.py`: Setup script for installing the AWS CLI
+
+
+また、InstallationにおいてPythonのバージョンが3.8以上である必要があることは、setup.pyの記載とも一致します。
+
+
+README.md（一部抜粋：Installation）
+### Installation
+
+1. Ensure you have Python 3.8 or later installed.
+2. Install the AWS CLI using pip:
+
+---
+pip install awscli
+---
+
+
+実際のところは、aws-cliのインストール方法は多岐にわたります。これらの情報も加味するには、別途手動で追加することになりそうです。
+なお、ここまで初回生成のREADMEを見ていきましたが、このREADMEはプロンプト指示をだすことによる修正が可能です。
+例えば、セクションの追加や削除、特定の文章自体の修正が可能です。この際、変更したいセクションや追加削除したいコンテンツ、文章の修正方針は明確に記述する必要があります。また、参照する必要があるものは、参照先がコードである必要があります。
+また、READMEをより良いものとするためにAWS公式からベストプラクティスが提供されています。
+https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/doc-generation-best-practices.html
+
+検証2：/testコマンドをトリガーとして、ユニットテストを自動生成
+/testコマンドを実行すると下記のような画面を見ることができます。なお、2024/12現在はJavaとPythonのみが対応となっております。ここでは文量の都合でaws-cliの検証結果のみ紹介します。
+
+
+aws-cliの検証結果
+下記ファイルの単体テストを行いました。
+https://github.com/aws/aws-cli/blob/develop/awscli/customizations/s3/fileinfo.py
+該当ファイルには、下記4つのメソッドがあります。
+
+__init__(self, src, dest, compare_key, size, last_update, src_type, dest_type, operation_name, client, parameters, source_client, is_stream, associated_response_data)
+is_glacier_compatible(self)
+_is_glacier_object(self, response_data)
+_is_restored(self, response_data)
+
+生成されたテストケース一覧は下記の通りです。対象メソッド1つ1つに対して、正常ケースだけでなく異常ケースもしっかり検討されており、パターンも多く揃っております。（※番号1と3でまったく同じで何も記載のないテストが生成されていますが、この程度の余分なテストは削除する手間もたいしてないので、問題ないかと思っております。）
+
+
+
+＃
+テストメソッド
+テストの説明
+テスト対象メソッド
+
+
+
+
+1
+test__is_glacier_object_1
+既存のテスト（変更なし）
+_is_glacier_object
+
+
+2
+test__is_glacier_object_2
+非Glacierオブジェクトの場合にFalseを返すことをテスト
+_is_glacier_object
+
+
+3
+test__is_glacier_object_3
+既存のテスト（変更なし）
+_is_glacier_object
+
+
+4
+test__is_restored_with_case_sensitive_restore_value
+大文字小文字を区別するRestore値でのテスト
+_is_restored
+
+
+5
+test__is_restored_with_empty_input
+空の入力での_is_restoredメソッドのテスト
+_is_restored
+
+
+6
+test__is_restored_with_empty_restore_value
+空のRestore値での_is_restoredメソッドのテスト
+_is_restored
+
+
+7
+test__is_restored_with_incorrect_type
+不正な入力タイプでの_is_restoredメソッドのテスト
+_is_restored
+
+
+8
+test__is_restored_with_invalid_restore_value
+無効なRestore値での_is_restoredメソッドのテスト
+_is_restored
+
+
+9
+test__is_restored_with_missing_restore_key
+Restoreキーが欠落している場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+10
+test__is_restored_with_none_input
+None入力での_is_restoredメソッドのテスト
+_is_restored
+
+
+11
+test__is_restored_with_ongoing_request
+進行中のリクエストでの_is_restoredメソッドのテスト
+_is_restored
+
+
+12
+test__is_restored_with_partial_restore_value
+部分的なRestore値での_is_restoredメソッドのテスト
+_is_restored
+
+
+13
+test_init_with_all_parameters
+すべてのパラメータを指定してFileInfoを初期化するテスト
+__init__
+
+
+14
+test_init_with_default_parameters
+デフォルトパラメータでのFileInfo初期化テスト
+__init__
+
+
+15
+test_init_with_empty_src
+空のsrcパラメータでの初期化テスト
+__init__
+
+
+16
+test_init_with_invalid_associated_response_data
+無効なassociated_response_dataでの初期化テスト
+__init__
+
+
+17
+test_init_with_invalid_dest_type
+無効なdest_typeパラメータでの初期化テスト
+__init__
+
+
+18
+test_init_with_invalid_is_stream
+無効なis_streamパラメータでの初期化テスト
+__init__
+
+
+19
+test_init_with_invalid_last_update
+無効なlast_updateパラメータでの初期化テスト
+__init__
+
+
+20
+test_init_with_invalid_operation_name
+無効なoperation_nameパラメータでの初期化テスト
+__init__
+
+
+21
+test_init_with_invalid_parameters_type
+無効なparameters型での初期化テスト
+__init__
+
+
+22
+test_init_with_invalid_src_type
+無効なsrc_typeパラメータでの初期化テスト
+__init__
+
+
+23
+test_init_with_negative_size
+負のsizeパラメータでの初期化テスト
+__init__
+
+
+24
+test_init_with_parameters
+パラメータを指定してFileInfoを初期化するテスト
+__init__
+
+
+25
+test_is_glacier_compatible_1
+Glacierオブジェクトのダウンロード操作の互換性テスト
+is_glacier_compatible
+
+
+26
+test_is_glacier_compatible_3
+Glacierオブジェクトの削除操作の互換性テスト
+is_glacier_compatible
+
+
+27
+test_is_glacier_compatible_deep_archive_object
+Deep Archiveオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+28
+test_is_glacier_compatible_glacier_object_copy
+Glacierオブジェクトのコピー操作の互換性テスト
+is_glacier_compatible
+
+
+29
+test_is_glacier_compatible_glacier_object_download
+Glacierオブジェクトのダウンロード操作の互換性テスト
+is_glacier_compatible
+
+
+30
+test_is_glacier_compatible_glacier_object_move_local_source
+ローカルソースのGlacierオブジェクトの移動操作の互換性テスト
+is_glacier_compatible
+
+
+31
+test_is_glacier_compatible_glacier_object_move_s3_source
+S3ソースのGlacierオブジェクトの移動操作の互換性テスト
+is_glacier_compatible
+
+
+32
+test_is_glacier_compatible_glacier_upload
+Glacierオブジェクトのアップロード操作の互換性テスト
+is_glacier_compatible
+
+
+33
+test_is_glacier_compatible_invalid_storage_class
+無効なストレージクラスでの互換性テスト
+is_glacier_compatible
+
+
+34
+test_is_glacier_compatible_move_from_s3_glacier
+S3 Glacierからの移動操作の互換性テスト
+is_glacier_compatible
+
+
+35
+test_is_glacier_compatible_no_associated_response_data
+関連レスポンスデータがない場合の互換性テスト
+is_glacier_compatible
+
+
+36
+test_is_glacier_compatible_non_glacier_object
+非Glacierオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+37
+test_is_glacier_compatible_non_glacier_object_2
+別の非Glacierオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+38
+test_is_glacier_compatible_restored_glacier_object
+復元されたGlacierオブジェクトの互換性テスト
+is_glacier_compatible
+
+
+39
+test_is_glacier_object_case_sensitivity
+ストレージクラスの大文字小文字の区別テスト
+_is_glacier_object
+
+
+40
+test_is_glacier_object_copy_operation
+Glacierオブジェクトのコピー操作のテスト
+_is_glacier_object
+
+
+41
+test_is_glacier_object_deep_archive
+Deep Archiveストレージクラスの判定テスト
+_is_glacier_object
+
+
+42
+test_is_glacier_object_empty_input
+空の入力での_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+43
+test_is_glacier_object_incorrect_type
+不正な入力タイプでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+44
+test_is_glacier_object_invalid_storage_class
+無効なストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+45
+test_is_glacier_object_missing_storage_class
+ストレージクラスが欠落している場合の_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+46
+test_is_glacier_object_restored_glacier
+復元されたGlacierオブジェクトの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+47
+test_is_glacier_object_returns_false_for_empty_response_data
+空のレスポンスデータでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+48
+test_is_glacier_object_returns_false_for_non_glacier_storage_class
+非Glacierストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+49
+test_is_glacier_object_returns_false_for_none_response_data
+Noneレスポンスデータでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+50
+test_is_glacier_object_returns_false_for_restored_glacier_object
+復元されたGlacierオブジェクトでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+51
+test_is_glacier_object_returns_true_for_deep_archive_storage_class
+Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+52
+test_is_glacier_object_returns_true_for_glacier_storage_class
+Glacierストレージクラスでの_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+53
+test_is_glacier_object_with_no_response_data
+レスポンスデータがない場合の_is_glacier_objectメソッドのテスト
+_is_glacier_object
+
+
+54
+test_is_restored_when_object_is_not_restored
+オブジェクトが復元されていない場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+55
+test_is_restored_when_object_is_restored
+オブジェクトが復元された場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+56
+test_is_restored_when_restore_info_is_missing
+復元情報が欠落している場合の_is_restoredメソッドのテスト
+_is_restored
+
+
+
+テストメソッドを一部抜粋します。こちらの中身のロジックも問題なさそうです。
+
+test_fileinfo.py（一部抜粋：6 空のRestore値での_is_restoredメソッドのテスト）
+    def test__is_restored_with_empty_restore_value(self):
+        """
+        Test _is_restored method with empty Restore value
+        """
+        file_info = FileInfo(src='test')
+        response_data = {'Restore': ''}
+        assert not file_info._is_restored(response_data)
+
+
+
+test_fileinfo.py（一部抜粋：51 Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト）
+    def test_is_glacier_object_returns_true_for_deep_archive_storage_class(self):
+        """
+        Test that _is_glacier_object returns True for a DEEP_ARCHIVE storage class
+        that is not restored.
+        """
+        file_info = FileInfo(src='dummy_src')
+        response_data = {
+            'StorageClass': 'DEEP_ARCHIVE',
+            'Restore': 'ongoing-request="true"'
+        }
+        
+        result = file_info._is_glacier_object(response_data)
+        
+        assert result == True
+
+
+なお、本家のtest_fileinfo.pyファイルは下記の通りです。本家のユニットテストコードはより見やすいですね。とはいえ自動生成も健闘しているとは思うので、さらなる発展を期待します。
+https://github.com/aws/aws-cli/blob/develop/tests/unit/customizations/s3/test_fileinfo.py
+
+さいごに
+予想よりもドキュメント自動作成、ユニットテスト自動生成のクオリティが高かったため、活用できる箇所にはぜひ活用していきたいなと思いました。
+また、ドキュメント自動生成にはサービスクォータがありますのでご注意ください！
+
+
+（参考）サービスクォータ
+
+既存のREADMEの最大サイズ：15KB
+READMEを作成するプロジェクトに格納されているコードサイズ：200MB（非圧縮の場合）、50MB（圧縮の場合）
+タスクごとのドキュメント生成数：3
+
+
+
+  こちらはNRI OpenStandia Advent Calendar 2024の10日目の記事です。
+AWS re:Invent 2024にて、Amazon Q Developerのアップデートとして「コードに基づいたドキュメント自動生成」機能と「コードに基づいたユニットテスト自動生成」機能が発表されました。 
+
+ 
+
+ Amazon Q Developerは、AWS社のコードやドキュメントをもとに学習が行われています。つまり、「自動生成されるドキュメント」と「自動生成されるユニットテスト」はAWS本家が手動作成しているドキュメントやユニットテストと同じようなクオリティになるのではないでしょうか。 そこで、今回はAWS社から出しているOSSを題材として、どのようなドキュメントやユニットテストが自動生成されていくかを見ていこうと思います。  Amazon Q Developerは運用開発者がVSCodeやIntelliJ等のコードエディタを用いてコーディングする際に、生成AIによるアシストをしてくれるツールです。 アシスト例はこちらです。   Java検証用にServerless Java container、Python検証用にaws-cliをピックアップしました。 
+
+ 
+
+    Serverless Java containerの実行結果はこちらです。公式のREADMEとは異なる全く異なるアウトプットであることから、「Amazon Q Developerは過学習していない（個別最適化されないように、大量のデータを学習している）」ということがわかります。  中身を詳しく見ていきます。まずREADMEの目次構成は下記のようになっていました。READMEの構成として、存在すると便利な項目が綺麗に並んでおり、READMEとしての有用性が高くなっております。 
+README.md の目次構成
+AWS Serverless Java Container（タイトル）
+├　Repository Structure（リポジトリ内のモジュール構成）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Getting Started（インストール後の使い方）
+│├　Configuration（使う際の設定について）
+│├　Common Use Cases（主なユースケース）
+│├　Testing（テスト実行方法）
+│└　Troubleshooting（トラブルシューティング）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイ方法）
+└　Infrastructure（インフラ構成）
+
+ README.md の目次構成 README.md の目次構成 AWS Serverless Java Container（タイトル）
+├　Repository Structure（リポジトリ内のモジュール構成）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Getting Started（インストール後の使い方）
+│├　Configuration（使う際の設定について）
+│├　Common Use Cases（主なユースケース）
+│├　Testing（テスト実行方法）
+│└　Troubleshooting（トラブルシューティング）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイ方法）
+└　Infrastructure（インフラ構成）
+ それぞれの項目も、コマンドベースで丁寧に記載がされていました。また、内容もおおむね「一般的に正しいことが多い」回答となっておりました。 例えば、トラブルシューティングの章は一般的な対応方法が記載されています。インストールの章も同じくです。
+なお、インストールバージョンに関しては、「Prerequisites」で指定されているバージョンよりも古いバージョン（例：Java17）も本OSSは利用可能と思われます。と言いますのも、本OSSはgithubのワークフロー設定（.github/workflows/continuous-integration-workflow.yml）にてJava17を指定しています。 ただ最新LTSであるJava21を推奨しているのは個人的には悪くないと思います。アシスタントする生成AI側で明確に推奨バージョンを判別できない場合、一般的には新しいLTSを使う方が推奨されるため、回答として「明確な」間違いとなる可能性が低いためです。 
+README.md（一部抜粋：Installation）
+### Installation
+
+Prerequisites:
+- Java 21 or later
+- Maven 3.6.3 or later
+- AWS CLI configured with appropriate credentials
+
+To install the AWS Serverless Java Container, clone the repository and build the project:
+
+---
+git clone https://github.com/aws/serverless-java-container.git
+cd serverless-java-container
+mvn clean install
+---
+
+ README.md（一部抜粋：Installation） README.md（一部抜粋：Installation） ### Installation
+
+Prerequisites:
+- Java 21 or later
+- Maven 3.6.3 or later
+- AWS CLI configured with appropriate credentials
+
+To install the AWS Serverless Java Container, clone the repository and build the project:
+
+---
+git clone https://github.com/aws/serverless-java-container.git
+cd serverless-java-container
+mvn clean install
+---
+ 
+README.md（一部抜粋：Troubleshooting）
+### Troubleshooting
+
+Common issues and solutions:
+
+1. ClassNotFoundException:
+   - Ensure all dependencies are correctly specified in your `pom.xml` file.
+   - Check that the `Handler` property in your `template.yml` file points to the correct class.
+
+2. API Gateway errors:
+   - Verify that your API routes are correctly defined in your application code.
+   - Check the CloudWatch logs for your Lambda function for any error messages.
+
+3. Performance issues:
+   - Consider using the `async` initialization option for faster cold starts.
+   - Optimize your application code and reduce the number of dependencies.
+
+ README.md（一部抜粋：Troubleshooting） README.md（一部抜粋：Troubleshooting） ### Troubleshooting
+
+Common issues and solutions:
+
+1. ClassNotFoundException:
+   - Ensure all dependencies are correctly specified in your `pom.xml` file.
+   - Check that the `Handler` property in your `template.yml` file points to the correct class.
+
+2. API Gateway errors:
+   - Verify that your API routes are correctly defined in your application code.
+   - Check the CloudWatch logs for your Lambda function for any error messages.
+
+3. Performance issues:
+   - Consider using the `async` initialization option for faster cold starts.
+   - Optimize your application code and reduce the number of dependencies.
+  もう一つの検証対象であるaws-cliも見ていきます。READMEの目次構成は下記の通りです。 この目次は、Serverless Java containerのREADME自動生成の結果と完全一致はしていないものの、かなり似ております。このことから、裏側で動いている生成AI側である程度READMEの目次フォーマットを決めていることが推測できます。 
+README.md の目次構成
+AWS Command Line Interface (CLI)（タイトル）
+├　Repository Structure（リポジトリ内のフォルダ構成、主要なファイル）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Configuration（使う際の設定について）
+│├　Basic Usage（インストール後の基本的な使い方）
+│└　Getting Help（使い方のヘルプコマンド）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイされている形式）
+├　Infrastructure（インフラ構成）
+├　Testing & Quality（テスト方法）
+├　Troubleshooting（トラブルシューティング）
+└　Performance Optimization（パフォーマンスの最適化）
+
+ README.md の目次構成 README.md の目次構成 AWS Command Line Interface (CLI)（タイトル）
+├　Repository Structure（リポジトリ内のフォルダ構成、主要なファイル）
+├　Usage Instructions（使い方）
+│├　Installation（インストール方法）
+│├　Configuration（使う際の設定について）
+│├　Basic Usage（インストール後の基本的な使い方）
+│└　Getting Help（使い方のヘルプコマンド）
+├　Data Flow（データの流れ）
+├　Deployment（デプロイされている形式）
+├　Infrastructure（インフラ構成）
+├　Testing & Quality（テスト方法）
+├　Troubleshooting（トラブルシューティング）
+└　Performance Optimization（パフォーマンスの最適化）
+ 記載内容もおおむね正しいです。Repository Structureは検証のためにdocフォルダを削除しているためそれが記載されていないのは想定通りです。ドキュメント以外のフォルダは主要なものを問題なくピックアップできております。（awscliフォルダ配下にtopicsフォルダがあることを紹介できておりませんが、これは後述する「READMEの修正」で修正可能な範囲です。） 
+README.md（一部抜粋：Repository Structure）
+## Repository Structure
+
+The repository is organized as follows:
+
+- `aws-cli/`: Main directory containing the AWS CLI source code
+  - `awscli/`: Core AWS CLI implementation
+    - `customizations/`: Custom commands and behaviors for specific AWS services
+    - `data/`: Configuration data files
+    - `examples/`: Example files and templates
+  - `bin/`: Executable scripts
+  - `scripts/`: Utility scripts for development and testing
+  - `tests/`: Test suite for the AWS CLI
+
+Key Files:
+- `aws-cli/awscli/__main__.py`: Entry point for the AWS CLI
+- `aws-cli/awscli/clidriver.py`: Main driver for the CLI functionality
+- `aws-cli/setup.py`: Setup script for installing the AWS CLI
+
+ README.md（一部抜粋：Repository Structure） README.md（一部抜粋：Repository Structure） ## Repository Structure
+
+The repository is organized as follows:
+
+- `aws-cli/`: Main directory containing the AWS CLI source code
+  - `awscli/`: Core AWS CLI implementation
+    - `customizations/`: Custom commands and behaviors for specific AWS services
+    - `data/`: Configuration data files
+    - `examples/`: Example files and templates
+  - `bin/`: Executable scripts
+  - `scripts/`: Utility scripts for development and testing
+  - `tests/`: Test suite for the AWS CLI
+
+Key Files:
+- `aws-cli/awscli/__main__.py`: Entry point for the AWS CLI
+- `aws-cli/awscli/clidriver.py`: Main driver for the CLI functionality
+- `aws-cli/setup.py`: Setup script for installing the AWS CLI
+ また、InstallationにおいてPythonのバージョンが3.8以上である必要があることは、setup.pyの記載とも一致します。  
+README.md（一部抜粋：Installation）
+### Installation
+
+1. Ensure you have Python 3.8 or later installed.
+2. Install the AWS CLI using pip:
+
+---
+pip install awscli
+---
+
+ README.md（一部抜粋：Installation） README.md（一部抜粋：Installation） ### Installation
+
+1. Ensure you have Python 3.8 or later installed.
+2. Install the AWS CLI using pip:
+
+---
+pip install awscli
+---
+ 実際のところは、aws-cliのインストール方法は多岐にわたります。これらの情報も加味するには、別途手動で追加することになりそうです。 なお、ここまで初回生成のREADMEを見ていきましたが、このREADMEはプロンプト指示をだすことによる修正が可能です。
+例えば、セクションの追加や削除、特定の文章自体の修正が可能です。この際、変更したいセクションや追加削除したいコンテンツ、文章の修正方針は明確に記述する必要があります。また、参照する必要があるものは、参照先がコードである必要があります。 また、READMEをより良いものとするためにAWS公式からベストプラクティスが提供されています。
+https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/doc-generation-best-practices.html  /testコマンドを実行すると下記のような画面を見ることができます。なお、2024/12現在はJavaとPythonのみが対応となっております。ここでは文量の都合でaws-cliの検証結果のみ紹介します。   下記ファイルの単体テストを行いました。
+https://github.com/aws/aws-cli/blob/develop/awscli/customizations/s3/fileinfo.py 該当ファイルには、下記4つのメソッドがあります。 生成されたテストケース一覧は下記の通りです。対象メソッド1つ1つに対して、正常ケースだけでなく異常ケースもしっかり検討されており、パターンも多く揃っております。（※番号1と3でまったく同じで何も記載のないテストが生成されていますが、この程度の余分なテストは削除する手間もたいしてないので、問題ないかと思っております。） テストメソッドを一部抜粋します。こちらの中身のロジックも問題なさそうです。 
+test_fileinfo.py（一部抜粋：6 空のRestore値での_is_restoredメソッドのテスト）
+    def test__is_restored_with_empty_restore_value(self):
+        """
+        Test _is_restored method with empty Restore value
+        """
+        file_info = FileInfo(src='test')
+        response_data = {'Restore': ''}
+        assert not file_info._is_restored(response_data)
+
+ test_fileinfo.py（一部抜粋：6 空のRestore値での_is_restoredメソッドのテスト） test_fileinfo.py（一部抜粋：6 空のRestore値での_is_restoredメソッドのテスト）     def test__is_restored_with_empty_restore_value(self):
+        """
+        Test _is_restored method with empty Restore value
+        """
+        file_info = FileInfo(src='test')
+        response_data = {'Restore': ''}
+        assert not file_info._is_restored(response_data)
+ 
+test_fileinfo.py（一部抜粋：51 Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト）
+    def test_is_glacier_object_returns_true_for_deep_archive_storage_class(self):
+        """
+        Test that _is_glacier_object returns True for a DEEP_ARCHIVE storage class
+        that is not restored.
+        """
+        file_info = FileInfo(src='dummy_src')
+        response_data = {
+            'StorageClass': 'DEEP_ARCHIVE',
+            'Restore': 'ongoing-request="true"'
+        }
+        
+        result = file_info._is_glacier_object(response_data)
+        
+        assert result == True
+
+ test_fileinfo.py（一部抜粋：51 Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト） test_fileinfo.py（一部抜粋：51 Deep Archiveストレージクラスでの_is_glacier_objectメソッドのテスト）     def test_is_glacier_object_returns_true_for_deep_archive_storage_class(self):
+        """
+        Test that _is_glacier_object returns True for a DEEP_ARCHIVE storage class
+        that is not restored.
+        """
+        file_info = FileInfo(src='dummy_src')
+        response_data = {
+            'StorageClass': 'DEEP_ARCHIVE',
+            'Restore': 'ongoing-request="true"'
+        }
+        
+        result = file_info._is_glacier_object(response_data)
+        
+        assert result == True
+ なお、本家のtest_fileinfo.pyファイルは下記の通りです。本家のユニットテストコードはより見やすいですね。とはいえ自動生成も健闘しているとは思うので、さらなる発展を期待します。
+https://github.com/aws/aws-cli/blob/develop/tests/unit/customizations/s3/test_fileinfo.py  予想よりもドキュメント自動作成、ユニットテスト自動生成のクオリティが高かったため、活用できる箇所にはぜひ活用していきたいなと思いました。 また、ドキュメント自動生成にはサービスクォータがありますのでご注意ください！ 
+
+（参考）サービスクォータ
+
+既存のREADMEの最大サイズ：15KB
+READMEを作成するプロジェクトに格納されているコードサイズ：200MB（非圧縮の場合）、50MB（圧縮の場合）
+タスクごとのドキュメント生成数：3
+
+
+  
+（参考）サービスクォータ
+
+既存のREADMEの最大サイズ：15KB
+READMEを作成するプロジェクトに格納されているコードサイズ：200MB（非圧縮の場合）、50MB（圧縮の場合）
+タスクごとのドキュメント生成数：3
+
+ （参考）サービスクォータ 21Go to list of users who liked4comment0Go to list of comments 21Go to list of users who liked4comment0Go to list of comments 21Go to list of users who liked  21Go to list of users who liked 21Go to list of users who liked Go to list of users who liked 4 4 comment0Go to list of comments comment Go to list of comments  Register as a new user and use Qiita more convenientlyYou get articles that match your needsYou can efficiently read back useful informationYou can use dark themeWhat you can do with signing upSign upLogin Register as a new user and use Qiita more conveniently Sign upLogin

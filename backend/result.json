@@ -1,0 +1,127 @@
+{
+    "query": "AWS re:Invent 2024新サービス",
+    "webPages": [
+        {
+            "title": "(随時更新) [AWS re:Invent 2024] Matt Garman Keynoteで発表 ...",
+            "url": "https://dev.classmethod.jp/articles/aws-re-invent-2024-matt-garman-keynote/",
+            "snippet": "以上、re:Invent 2024の目玉である、Matt Garman CEOによるキーノートで発表された新サービス/新機能のまとめでした。今回はMatt Garman氏がAWSのCEOに就任後、初のキーノートでした。近年のCEOキーノートでは、多くのサービスを",
+            "displayUrl": "https://dev.classmethod.jp/articles/aws-re-invent-2024...",
+            "datePublished": "2024-12-04T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "AWS re:Invent 2024 Day1の発表8つ総まとめ 「デー... - ITmedia",
+            "url": "https://www.itmedia.co.jp/enterprise/articles/2412/06/news121.html",
+            "snippet": "「AWS re:Invent 2024」の基調講演において同社でCEO（最高経営責任者）を務めるマット・ガーマン氏が登壇しAWSの戦略と多数の新サービスについて ...",
+            "displayUrl": "https://www.itmedia.co.jp/enterprise/articles/2412/06/...",
+            "datePublished": "2024-12-06T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "AWS re:Invent 2024 の注目の発表 | Amazon Web Services",
+            "url": "https://aws.amazon.com/jp/blogs/news/top-announcements-of-aws-reinvent-2024/",
+            "snippet": "毎年恒例の AWS フラッグシップカンファレンスである AWS re:Invent 2024 が、 今年も 2024 年 12 月 2 日から 6 日にかけてラスベガスで開催されます。このプレミアクラウドコンピューティングイベントでは、1 週間にわたる基調講演",
+            "displayUrl": "https://aws.amazon.com/jp/blogs/news/top-announcements...",
+            "datePublished": "2024-12-11T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "週刊AWS – re:Invent 2024特別号 part 1 (2024/12/2週)",
+            "url": "https://aws.amazon.com/jp/blogs/news/aws-weekly-20241202-1/",
+            "snippet": "先週は AWS re:Invent 2024 が開催されました。週刊AWSは、毎週の新発表を発表日ごとに纏めるというのがコンセプトなのですが、今週は re:Invent 2024 特別号として、サービスのカテゴリごとにまとめる形にしました。",
+            "displayUrl": "https://aws.amazon.com/jp/blogs/news/aws-weekly-20241202-1",
+            "datePublished": "2024-12-09T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "【AWS re:Invent 2024】【新機能】AWS Transfer Family ...",
+            "url": "https://blog.serverworks.co.jp/aws-reinvent-2024-new-feature-aws-transfer-family-web-apps",
+            "snippet": "こんにちは。 アプリケーションサービス部、DevOps担当の兼安です。 今回は、AWS re:Invent 2024期間中に発表された新機能「AWS Transfer Family web apps」を試してみたので、その内容をお伝えします。 AWS Transfer Family web appsとは AWS Transfer Family web appsを試してみる ウェブアプリの作成 Amazon S3 Access Grantsの ...",
+            "displayUrl": "https://blog.serverworks.co.jp/aws-reinvent-2024-new...",
+            "datePublished": "2024-12-11T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "【AWS re:Invent2024】 CEOキーノートで発表されたサービスを ...",
+            "url": "https://dev.classmethod.jp/articles/reinvent2024-ceo-keynote-major-service-announcement-summary/",
+            "snippet": "新しく発表されたAmazon Bedrock Model Distillationでは、もっと効率的に小型のAIモデルを使うことで、最大500%速くなり、75%安くなります。 これで生成AI回答の正確性をチェックします。 このサービスで複数のAI Agent同士で協力可能になります。 Amazon Novaという最先端AIモデルが発表されました。 （Amazon Bedrock内で使える） そしてAmazon Novaをベースにした、画像生成サービスAmazon Nova Canvasと映像生成サービスのAmazon Nova Reelも発表されています。 今後Amazon NovaでのSpeech to SpeechやAny to Any（文章・音声・映像など）も期待できます。",
+            "displayUrl": "https://dev.classmethod.jp/articles/reinvent2024-ceo...",
+            "datePublished": null,
+            "imageUrl": null
+        },
+        {
+            "title": "AWS re:Invent 2024 クラスメソッドポータルサイト",
+            "url": "https://event.classmethod.jp/reinvent/2024",
+            "snippet": "AWSの世界最大級のカンファレンスイベント「AWS re:Invent」の最新情報を現地からお届け！本サイトはDevelopersIOブログや動画、イベントなど、re:Inventの注目情報をまとめたクラスメソッドのポータルサイトです。",
+            "displayUrl": "https://event.classmethod.jp/reinvent/2024",
+            "datePublished": null,
+            "imageUrl": null
+        },
+        {
+            "title": "[AWS re:Invent 2024] Swami Sivasubramanian Keynoteで ...",
+            "url": "https://dev.classmethod.jp/articles/aws-re-invent-2024-swami-sivasubramanian-keynote-awsreinvent/",
+            "snippet": "AWS re:Invent 2024、現地ラスベガスからお送りしています。Swami Sivasubramanian Keynoteの中で発表された新サービスをまとめていきます。機械学習や生成AI関連のアップデートが大盛りです。随時アップデートしていきます。",
+            "displayUrl": "https://dev.classmethod.jp/articles/aws-re-invent-2024...",
+            "datePublished": "2024-12-05T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "re:Invent 2024 での AWS のクラウド運用における主要な発表",
+            "url": "https://aws.amazon.com/jp/blogs/news/top-announcements-for-aws-cloud-operations-at-reinvent-2024/",
+            "snippet": "re:Invent 2024 で、AWS は運用をより安全で俊敏、効率的、そしてインテリジェントなものにするための強力な新機能を発表しました。Systems Manager での強化されたノード管理、宣言的ポリシーおよびリソースコントロールポリシーによる",
+            "displayUrl": "https://aws.amazon.com/jp/blogs/news/top-announcements...",
+            "datePublished": "2024-12-03T00:00:00.0000000",
+            "imageUrl": null
+        },
+        {
+            "title": "AI開発はどこまで楽になる？ Sagemaker、Bedrock、Amazon ...",
+            "url": "https://techtarget.itmedia.co.jp/tt/news/2412/10/news05.html",
+            "snippet": "2024年12月2～6日に開催された「AWS re:Invent」では、同社の生成AIサービス「Sagemaker」「Bedrock」「Q」の新機能が発表された。AI開発はどう変わるのか。",
+            "displayUrl": "https://techtarget.itmedia.co.jp/tt/news/2412/10/news05.html",
+            "datePublished": "2024-12-09T20:22:32.0000000",
+            "imageUrl": null
+        }
+    ],
+    "news": [
+        {
+            "title": "AWS re:Invent 2024 Day2 AI関連発表まとめ【Amazon Q編】：AWS re:Invent 2024まとめ",
+            "url": "https://www.itmedia.co.jp/enterprise/articles/2412/09/news084.html",
+            "snippet": "「Amazon Q」はAWS独自の高性能な生成AIアシスタントであり、2024年5月に一般提供が開始されて以来、さまざまなシーンで利用できるサービスを提供してきた。シヴァスブラマニアン氏はこのAmazon Qについて3つの大きなアップデートを発表した。",
+            "source": "ITmedia",
+            "imageUrl": "https://www.bing.com/th?id=OVFT._wFk0rA9Awi1VwiTwFjQAi&pid=News",
+            "datePublished": "2024-12-09T07:02:00.0000000Z"
+        },
+        {
+            "title": "AWSの生成AI新モデル「Nova」が登場 年次イベント「re:Invent 2024」開催",
+            "url": "https://www.weeklybcn.com/journal/feature/detail/20241219_207539.html",
+            "snippet": "米Amazon Web Services（アマゾン・ウェブ・サービス、AWS）が恒例の年次イベント「re:Invent 2024」を米ラスベガスで開催した。2024年にAWSの新たなトップとなったマット・ガーマンCEOに加えて、米Amazon.com（アマゾン・ドット・コム）のアンディ・ジャシーCEOが久々に登場。目玉となったのは新たな生成AIモデル「Amazon Nova」で、AIワークロードの",
+            "source": "weeklybcn",
+            "imageUrl": "https://www.bing.com/th?id=OVFT.wV0crqojdMuaWNd5bRHh6S&pid=News",
+            "datePublished": "2024-12-19T00:00:00.0000000Z"
+        },
+        {
+            "title": "AWS re:Invent 2024 Day2 AI関連発表まとめ【Amazon Bedrock編】：AWS re:Invent 2024 ...",
+            "url": "https://www.itmedia.co.jp/enterprise/articles/2412/09/news083.html",
+            "snippet": "Amazon Web Services（以下、AWS）は2024年12月2～6日（現地時間）にかけて、米ラスベガスで年次イベント「AWS re:Invent 2024」を開催した。Day2の基調講演では、同社でAIおよびデータ担当バイスプレジデントを務めるスワミ・シヴァスブラマニアン氏が登壇し、AWSにおけるAI関連の取り組みと、18個の新サービスについて発表した。本稿は18の発表の中でももっとも情報が多かった「Amazon Bedrock」のアップデートをまとめる。",
+            "source": "ITmedia",
+            "imageUrl": "https://www.bing.com/th?id=OVFT.oyOcSr7iinyR6kcQ5cQt9S&pid=News",
+            "datePublished": "2024-12-09T06:57:00.0000000Z"
+        },
+        {
+            "title": "AWSから見えてくる生成AI競争時代のクラウド投資",
+            "url": "https://www.msn.com/ja-jp/news/techandscience/%E8%A5%BF%E7%94%B0%E5%AE%97%E5%8D%83%E4%BD%B3%E3%81%AE%E3%82%A4%E3%83%9E%E3%83%88%E3%83%9F%E3%83%A9%E3%82%A4-aws-reinvent-%E3%81%8B%E3%82%89%E7%94%9F%E6%88%90ai%E7%AB%B6%E4%BA%89%E6%99%82%E4%BB%A3%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E6%8A%95%E8%B3%87%E3%81%8C%E8%A6%8B%E3%81%88%E3%81%A6%E3%81%8F%E3%82%8B/ar-AA1vuKjE",
+            "snippet": "AWSはre:inventの会期中、複数の基調講演を行なうのが常だ。最初はインフラ構築とハードウェアに関する「MONDAY NIGHT LIVE」、次がCEOによる基調講演。翌日がAI・機械学習に特化したものがあり、大手顧客に関する基調講演があり、最終日には、Amazon CTOのワーナー・ヴォゲルス氏による「ビジョン」的な基調講演である。",
+            "source": "Impress Watch on MSN.com",
+            "imageUrl": "https://www.bing.com/th?id=OVFT.q3zP1LYVNcJXSWI547Jnby&pid=News",
+            "datePublished": "2024-12-08T23:20:00.0000000Z"
+        },
+        {
+            "title": "富士通がAWSと協業拡大、2027年度までに受注を直近3年実績から倍増 ...",
+            "url": "https://xtech.nikkei.com/atcl/nxt/column/18/03027/121200007/",
+            "snippet": "富士通が米Amazon Web Services（アマゾン・ウェブ・サービス、AWS）との協業を拡大した。システムのクラウド移行で提携すると共に、社会課題解決のためのサービス群である「Fujitsu Uvance（ユーバンス）」事業において共同でオファリングを開発する。",
+            "source": "日経クロステック",
+            "imageUrl": "https://www.bing.com/th?id=OVFT.r5monJaLE0S3Gwen38hmNy&pid=News",
+            "datePublished": "2024-12-15T20:00:00.0000000Z"
+        }
+    ]
+}

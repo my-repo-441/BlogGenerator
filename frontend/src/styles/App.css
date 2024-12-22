@@ -1,0 +1,13 @@
+/* メインコンテンツ */
+.main-content {
+    margin-left: 250px; /* サイドバーの幅分だけ右にずらす */
+    padding: 20px;
+    background-color: antiquewhite;
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 200px; /* レスポンシブ時に調整 */
+    }
+  }
+  
