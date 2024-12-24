@@ -3,11 +3,11 @@ from requests.auth import HTTPBasicAuth
 
 # def post_to_wordpress(title, content, image_url):
 def post_to_wordpress(title, content):
-    wp_url = "https://www.kuretom.com/wp-json/wp/v2/posts"
-    wp_user = "rabityan"
-    wp_app_password = "1fJK 71JN 83eD TQAJ JmzE MpA3"
+    wp_url = ""
+    wp_user = ""
+    wp_app_password = ""
 
-    # # 画像をWordPressにアップロード
+    # #画像をWordPressにアップロード
     # media_url = "https://www.kuretom.com/wp-json/wp/v2/media"
     # image_data = requests.get(image_url).content
     # headers = {"Content-Disposition": "attachment; filename=image.jpg"}
