@@ -1,23 +1,23 @@
 [
     {
-        "title": "(随時更新) [AWS re:Invent 2024] Matt Garman Keynoteで発表 ...",
-        "url": "https://dev.classmethod.jp/articles/aws-re-invent-2024-matt-garman-keynote/",
-        "snippet": "以上、re:Invent 2024の目玉である、Matt Garman CEOによるキーノートで発表された新サービス/新機能のまとめでした。今回はMatt Garman氏がAWSのCEOに就任後、初のキーノートでした。近年のCEOキーノートでは、多くのサービスを",
-        "displayUrl": "https://dev.classmethod.jp/articles/aws-re-invent-2024...",
+        "title": "【Amazon Nova】全モデル比較してみた！！ - CloudBuilders",
+        "url": "https://www.cloudbuilders.jp/articles/5185/",
+        "snippet": "Amazon Novaは、最先端のインテリジェンスと業界をリードする価格性能を提供する新世代の基盤モデル（FM）であり、Amazon Bedrockでのみ利用可能です。 Amazon Novaを使用することで、ほとんどすべての生成AIタスクのコストとレイ",
+        "displayUrl": "https://www.cloudbuilders.jp/articles/5185",
         "datePublished": "2024-12-04T00:00:00.0000000"
     },
     {
-        "title": "【AWS re:Invent2024】 CEOキーノートで発表されたサービスを ...",
-        "url": "https://dev.classmethod.jp/articles/reinvent2024-ceo-keynote-major-service-announcement-summary/",
-        "snippet": "そしてAmazon Novaをベースにした、画像生成サービスAmazon Nova Canvasと映像生成サービスのAmazon Nova Reelも発表されています。 今後Amazon NovaでのSpeech to SpeechやAny to Any（文章・音声・映像など）も期待できます。 Amazon Qで、ユニットテスト（Unit Test）、厳密なドキュメンテーション生成（Generate accurate documentation）、コードレビュー（Code Review）ができるようになりました。",
-        "displayUrl": "https://dev.classmethod.jp/articles/reinvent2024-ceo...",
-        "datePublished": null
+        "title": "Amazon製の最新モデル「Amazon Nova」を試してみた",
+        "url": "https://www.ctc-g.co.jp/solutions/cloud/column/article/113.html",
+        "snippet": "Amazon Nova Reel： テキストと画像から動画を生成するモデル。テキストだけではなく画像からも動画を生成可能。最大入力文字数は512文字。また、近日中に2分間の動画生成にも対応する。（現在は6秒間） 利用手順（試してみた） ...",
+        "displayUrl": "https://www.ctc-g.co.jp/solutions/cloud/column/article/...",
+        "datePublished": "2024-12-12T00:00:00.0000000"
     },
     {
-        "title": "AWS re:Invent 2024 の注目の発表 | Amazon Web Services",
-        "url": "https://aws.amazon.com/jp/blogs/news/top-announcements-of-aws-reinvent-2024/",
-        "snippet": "毎年恒例の AWS フラッグシップカンファレンスである AWS re:Invent 2024 が、 今年も 2024 年 12 月 2 日から 6 日にかけてラスベガスで開催されます。このプレミアクラウドコンピューティングイベントでは、1 週間にわたる基調講演",
-        "displayUrl": "https://aws.amazon.com/jp/blogs/news/top-announcements...",
-        "datePublished": "2024-12-11T00:00:00.0000000"
+        "title": "Bedrock の新モデル Amazon Nova を早速試してみた！ - Qiita",
+        "url": "https://qiita.com/yu-Matsu/items/38bc37d94e600b082e15",
+        "snippet": "そんな中、日本時刻で12/3の深夜に、KeyNoteにて Amazon Bedrock の新モデルである Nova ファミリー が発表され、利用できるようになっていたので試してみました。",
+        "displayUrl": "https://qiita.com/yu-Matsu/items/38bc37d94e600b082e15",
+        "datePublished": "2024-12-05T00:00:00.0000000"
     }
 ]
