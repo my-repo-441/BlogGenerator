@@ -18,20 +18,21 @@ def blog_workflow(topic, collected_content, target_length=20000):
     total_content = current_content
     total_length = len(total_content)
     iteration = 1
-    max_iterations = 2  # 必要に応じて調整
+    max_iterations = 1  # 必要に応じて調整
+    improvement_iteration = 1
     status_log = []
 
     save_to_file(current_content, f"blog_iteration_{iteration}_initial.txt")
     status_log.append(f"Iteration {iteration}, Initial Content: {len(current_content)} characters")
 
     while total_length < target_length and iteration <= max_iterations:
-        for i in range(iteration):  # 最大3回のブラッシュアップ
-            current_content = generate_blog_content(topic, current_content, is_continuation=False)
+        for i in range(improvement_iteration):  # 数回のブラッシュアップ
+            total_content = generate_blog_content(topic, total_content, is_continuation=False, is_improvement=True)
             save_to_file(current_content, f"blog_iteration_{iteration}_revision_{i+1}.txt")
-            status_log.append(f"Iteration {iteration}, Revision {i+1}: {len(current_content)} characters")
+            status_log.append(f"Iteration {iteration}, Revision {i+1}: {len(total_content)} characters")
 
-        continuation = generate_blog_content(topic, current_content, is_continuation=True)
-        total_content += "\n" + continuation
+        continuation_content = generate_blog_content(topic, total_content, is_continuation=True, is_improvement=False)
+        total_content += "\n" + continuation_content
         save_to_file(total_content, f"blog_iteration_{iteration}_continuation.txt")
         total_length = len(total_content)
         status_log.append(f"Iteration {iteration}, Continuation: {len(total_content)} characters")

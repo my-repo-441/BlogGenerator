@@ -1,83 +1,100 @@
-```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Q Developerのドキュメント生成機能を試してみた</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2, h3 {
-            color: #2C3E50;
-        }
-        code {
-            background-color: #F4F4F4;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        pre {
-            background-color: #F4F4F4;
-            padding: 10px;
-            border-radius: 5px;
-            overflow: auto;
-        }
-    </style>
-</head>
-<body>
+### Aurora DSQLを触ってみた！くれとむとチーズくんの挑戦
 
-<h1>Amazon Q Developerの新機能を試してみる！</h1>
-<p>ある日、くれとむがチーズくんに、「Amazon Q Developerが新しくドキュメント生成機能を追加したらしいよ！」と言いました。</p>
-<p>チーズくんは、「それなら早速試してみよう！どうやって使うの？」と興奮気味に反応。</p>
+くれとむ「新しく発表されたAurora DSQLって知ってる？分散SQLで、超高可用性なんだとか。」
+チーズくん「それって、ただのSQLデータベースとは違うの？」
+くれとむ「そう、特にサーバーレスで使えて、しかもマルチリージョン対応だから、開発者には強い味方だよ！早速試してみようよ！」
 
-<h2>Amazon Q Developerとは？</h2>
-<p>Amazon Q Developerは、開発者向けに提供されているツールで、コードやドキュメントを基にドキュメントやユニットテストを自動生成する機能を持っています。この機能により、コーディングにより集中することが可能になります。</p>
+---
 
-<h2>ドキュメント生成機能を使ってみた</h2>
-<p>早速実際に使ってみました。まずは、GitHubから対象のリポジトリをクローンします。</p>
+### Aurora DSQLの概要
 
-<pre><code>git clone https://github.com/aws-samples/amazon-bedrock-samples.git</code></pre>
+2024年12月3日にAmazon Aurora DSQLのプレビュー版が発表されました。このサービスは、強力なデータの一貫性を持ちつつ、アクティブ/アクティブの高可用性を実現した分散SQLデータベースです。ところで、DSQLという呼称は「ディー・シークウェル」と発音されることを忘れずに。
 
-<p>次に、VSCodeを開いて、Amazon Q Developerをインストールします。インストール手順については公式ドキュメントを参考にしてください。</p>
+このブログでは、先日発表されたAurora DSQLに接続し、実際にデータベースに操作を加えてみる過程を紹介します。
 
-<h3>/docコマンドを使用してREADMEを生成</h3>
-<p>プロジェクトが準備できたら、VSCodeでチャット欄にコマンドを入力します。</p>
-<pre><code>/doc</code></pre>
-<p>すると、READMEを新規作成または更新する提案がありますので、今回は「Create a README」を選択しました。</p>
+### クラスターの作成と接続
 
-<h3>生成されたREADME内容の確認</h3>
-<p>数分後、READMEの自動生成が完了しました。生成されたドキュメントの目次は以下の通りです：</p>
-<ul>
-    <li>AWS Serverless Java Container</li>
-    <li>Repository Structure</li>
-    <li>Usage Instructions</li>
-    <li>Data Flow</li>
-    <li>Deployment</li>
-    <li>Infrastructure</li>
-</ul>
+まず、AWSマネジメントコンソールにログインして、Aurora DSQLのクラスターを作成します。私たちの場合はバージニア北部リージョンを選択しました。以下の手順でクラスターを立ち上げてみましょう：
 
-<p>それぞれの項目も、実際に有用な情報が記載されており、正確性も高かったです。</p>
+1. **マネジメントコンソールでAurora DSQLを開く**
+2. **「Create Cluster」を選択し、デフォルト設定でクラスター作成**
 
-<h2>ユニットテスト生成機能も試してみる</h2>
-<p>続いて、ユニットテストの自動生成も行いました。こちらは/testコマンドを使います。</p>
-<pre><code>/test</code></pre>
-<p>指定したファイルに基づいてユニットテストが生成され、各メソッドに対するテストケースも用意されます。以下に一部抜粋します：</p>
-<pre><code>def test__is_restored_with_empty_restore_value(self):
-    file_info = FileInfo(src='test')
-    response_data = {'Restore': ''}
-    assert not file_info._is_restored(response_data)
-</code></pre>
+1分ほど待つと、クラスターが成功裏に作成されました！
 
-<h2>まとめ</h2>
-<p>予想以上に高品質なドキュメントとユニットテストが生成され、これからの開発にとても役立ちそうです。特に技術的負債の解消に向けて、大きな力を貸してくれる機能と感じました。</p>
+次に、クラスターに接続します。以下のコマンドでCloudShellを使います。
 
-<p>これからもこの機能を活用して、開発効率を高めていきたいと思います。</p>
+```bash
+PGSSLMODE=require \
+psql --dbname postgres \
+--username admin \
+--host [エンドポイントをここに]
+```
 
-</body>
-</html>
-``` 
+接続が完了すると、「postgres=>」と表示されます。この時、AWSから取得した認証トークンを使用します。
 
-このHTMLは、くれとむとチーズくんの会話形式で始まるブログ記事です。Amazon Q Developerの新しいドキュメント生成機能を実際に使ってみた経験が詳細に記載されており、読者が興味を持ってくれる内容となっています。
+### データベース操作
+
+クラスターに接続したら、さっそくSQLコマンドを実行していきましょう！
+
+1. **スキーマの作成**
+   ```sql
+   CREATE SCHEMA example;
+   ```
+   
+2. **請求書テーブルの作成**
+   ```sql
+   CREATE TABLE example.invoice(id UUID PRIMARY KEY DEFAULT gen_random_uuid(), created timestamp, purchaser int, amount float);
+   ```
+
+3. **インデックスの作成**
+   ```sql
+   CREATE INDEX invoice_created_idx on example.invoice(created);
+   ```
+
+4. **部門テーブルの作成**
+   ```sql
+   CREATE TABLE example.department(id INT PRIMARY KEY UNIQUE, name text, email text);
+   ```
+
+実行が成功すると、さまざまなデータをインポートして使うことができます。
+
+### データのインポート
+
+次に、データのインポートです。GitHubからサンプルデータをダウンロードし、CloudShellにアップロードします。
+
+5. **ファイルのアップロード**
+   ```bash
+   # GitHubからのダウンロードコマンド
+   wget [ファイルのURL] -O department-insert-multirow.sql
+   ```
+
+6. **データを挿入する**
+   ```sql
+   \include department-insert-multirow.sql
+   \copy example.invoice(created, purchaser, amount) from 'invoice.csv' csv
+   ```
+
+これで部門テーブルと請求書テーブルが作成され、データが挿入されました。
+
+### 複数リージョンでのデータ確認
+
+次に、オハイオリージョンのエンドポイントで接続し、同じクエリを実行することで、データの整合性を確認します。
+
+```sql
+SELECT name, sum(amount) AS sum_amount
+FROM example.department 
+LEFT JOIN example.invoice ON department.id=invoice.purchaser
+GROUP BY name
+HAVING sum(amount) > 0
+ORDER BY sum_amount DESC;
+```
+
+オハイオリージョンでも同様の出力が確認でき、データの一貫性が保たれていることが確認できました。
+
+### まとめ
+
+くれとむ「どうだった、チーズくん？」
+チーズくん「とても簡単に使えたね！しかも、分散処理がきちんと機能しているのが分かって、ますます興味が湧いてきたよ！」
+くれとむ「これからの開発にぜひ活用してみてね。次はLambdaとの連携も試してみよう！」
+
+今回は、Aurora DSQLの基本的な操作に触れてみましたが、分散SQLという特性のおかげで、さまざまなユースケースに利用できそうです。次回も楽しみにしていてください！

@@ -1,11 +1,15 @@
 import requests
 from requests.auth import HTTPBasicAuth
+from config import Config
+
+# WordPressAPI環境変数の設定
+WP_URL = Config.WP_URL
+WP_USER = Config.WP_USER
+WP_APP_PASSWORD = Config.WP_APP_PASSWORD
+print(WP_URL, WP_USER, WP_APP_PASSWORD)
 
 # def post_to_wordpress(title, content, image_url):
 def post_to_wordpress(title, content):
-    wp_url = "https://www.kuretom.com/wp-json/wp/v2/posts"
-    wp_user = "rabityan"
-    wp_app_password = "1fJK 71JN 83eD TQAJ JmzE MpA3"
 
     # # 画像をWordPressにアップロード
     # media_url = "https://www.kuretom.com/wp-json/wp/v2/media"
@@ -33,9 +37,9 @@ def post_to_wordpress(title, content):
         # "featured_media": media_id  # サムネイル画像
     }
     response = requests.post(
-        wp_url,
+        WP_URL,
         json=post_data,
-        auth=HTTPBasicAuth(wp_user, wp_app_password)
+        auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
     )
     if response.status_code == 201:
         print(f"下書き投稿が成功しました: {response.json()['link']}")
