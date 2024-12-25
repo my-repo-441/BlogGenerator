@@ -1,7 +1,9 @@
 package_lock.json
 .vite
 
+.DS_Store
+frontend/.DS_Store
 frontend/node_modules
 
 backend/.env
-backend/data.DS_Store
+backend/.DS_Store
