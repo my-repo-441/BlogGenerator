@@ -1,16 +1,18 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AppProvider } from "./context/AppContext";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import FetchContent from './pages/FetchContent'; // 追加
-import './styles/App.css'; // 全体のスタイリングを読み込み
+import FetchContent from './pages/FetchContent';
+import { ChakraProvider, Container, Box } from '@chakra-ui/react';
 
-// 共通レイアウト
 const Layout = ({ children }) => (
-  <>
+  <Box>
     <Navbar />
-    <div className="main-content">{children}</div>
-  </>
+    <Container maxW="container.lg" py={6}>
+      {children}
+    </Container>
+  </Box>
 );
 
 const router = createBrowserRouter([
@@ -33,7 +35,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ChakraProvider>
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
+    </ChakraProvider>
+  );
 }
 
 export default App;

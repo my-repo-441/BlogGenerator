@@ -10,7 +10,8 @@ pipeline_bp = Blueprint('pipeline', __name__)
 @pipeline_bp.route('/run_pipeline', methods=['POST'])
 def run_pipeline():
     data = request.json
-    topic = data.get('topic')
+    title = data.get('title')
+    blog_keywords = data.get('blogKeywords')
     urls = data.get('urls', [])  # [{ "url": "http://example.com", "content": "..." }, ...]
 
     try:
@@ -21,9 +22,9 @@ def run_pipeline():
         )
         save_to_file(collected_content, "collected_content_by_url.txt")
 
-        final_blog, status_log = blog_workflow(topic, collected_content)
+        final_blog, status_log = blog_workflow(title=title, collected_content=collected_content, blog_keywords=blog_keywords)
 
-        post_to_wordpress(f"{topic} - Blog", final_blog)
+        post_to_wordpress(title, final_blog)
 
         return jsonify({
             "message": "Pipeline executed successfully",

@@ -6,11 +6,10 @@ from config import Config
 WP_URL = Config.WP_URL
 WP_USER = Config.WP_USER
 WP_APP_PASSWORD = Config.WP_APP_PASSWORD
-print(WP_URL, WP_USER, WP_APP_PASSWORD)
 
 # def post_to_wordpress(title, content, image_url):
 def post_to_wordpress(title, content):
-
+    print(f"title{title}")
     # #画像をWordPressにアップロード
     # media_url = "https://www.kuretom.com/wp-json/wp/v2/media"
     # image_data = requests.get(image_url).content

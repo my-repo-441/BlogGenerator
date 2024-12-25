@@ -1,10 +1,15 @@
 package_lock.json
 .vite
 .DS_Store
+# Ignore all __pycache__ directories
+__pycache__/
+
+# Ignore all .pyc files
+*.pyc
 
 frontend/.DS_Store
 frontend/node_modules
-frontend/package-lock.json
 
 backend/.env
+backend/data
 backend/.DS_Store

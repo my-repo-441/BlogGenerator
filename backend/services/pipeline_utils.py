@@ -11,10 +11,10 @@ def save_to_file(content, filename):
         f.write(content)
 
 # ブログ生成とブラッシュアップの処理
-def blog_workflow(topic, collected_content, target_length=20000):
+def blog_workflow(title, collected_content,  target_length=20000, blog_keywords=None):
     save_to_file(collected_content, "initial_collected_content.txt")
 
-    current_content = generate_blog_content(topic, collected_content)
+    current_content = generate_blog_content(title, blog_keywords, collected_content)
     total_content = current_content
     total_length = len(total_content)
     iteration = 1
@@ -27,11 +27,11 @@ def blog_workflow(topic, collected_content, target_length=20000):
 
     while total_length < target_length and iteration <= max_iterations:
         for i in range(improvement_iteration):  # 数回のブラッシュアップ
-            total_content = generate_blog_content(topic, total_content, is_continuation=False, is_improvement=True)
+            total_content = generate_blog_content(title, blog_keywords, total_content, is_continuation=False, is_improvement=True)
             save_to_file(current_content, f"blog_iteration_{iteration}_revision_{i+1}.txt")
             status_log.append(f"Iteration {iteration}, Revision {i+1}: {len(total_content)} characters")
 
-        continuation_content = generate_blog_content(topic, total_content, is_continuation=True, is_improvement=False)
+        continuation_content = generate_blog_content(title, blog_keywords, total_content, is_continuation=True, is_improvement=False)
         total_content += "\n" + continuation_content
         save_to_file(total_content, f"blog_iteration_{iteration}_continuation.txt")
         total_length = len(total_content)
