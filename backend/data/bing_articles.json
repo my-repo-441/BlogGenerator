@@ -1,23 +1,23 @@
 [
     {
-        "title": "【AWS】Amazon EC2 を利用した Web サーバーを構築してみた",
-        "url": "https://qiita.com/iitz-i13/items/fb5d5c01c32e98e8999c",
-        "snippet": "AWS (Amazon Web Services) で EC2 (Elastic Compute Cloud) を利用して仮想環境にサーバーを立てて、簡単な Web ページをデプロイするところまでやっていきたいと思います。",
-        "displayUrl": "https://qiita.com/iitz-i13/items/fb5d5c01c32e98e8999c",
-        "datePublished": "2023-12-22T00:00:00.0000000"
+        "title": "(随時更新) [AWS re:Invent 2024] Matt Garman Keynoteで発表 ...",
+        "url": "https://dev.classmethod.jp/articles/aws-re-invent-2024-matt-garman-keynote/",
+        "snippet": "以上、re:Invent 2024の目玉である、Matt Garman CEOによるキーノートで発表された新サービス/新機能のまとめでした。今回はMatt Garman氏がAWSのCEOに就任後、初のキーノートでした。近年のCEOキーノートでは、多くのサービスを",
+        "displayUrl": "https://dev.classmethod.jp/articles/aws-re-invent-2024...",
+        "datePublished": "2024-12-04T00:00:00.0000000"
     },
     {
-        "title": "【初学者必見】これだけ分かればAWSを使える！ 10 の重要 ...",
-        "url": "https://qiita.com/stori/items/872f7acec9787a710dca",
-        "snippet": "AWSはAmazonが提供している便利なクラウドサービスとして有名ですが、初めて使おうと思うと何やら知らない言葉が沢山出てきて圧倒されてしまう人もいるのではないでしょうか？",
-        "displayUrl": "https://qiita.com/stori/items/872f7acec9787a710dca",
-        "datePublished": "2024-11-28T00:00:00.0000000"
+        "title": "【AWS re:Invent2024】 CEOキーノートで発表されたサービスを ...",
+        "url": "https://dev.classmethod.jp/articles/reinvent2024-ceo-keynote-major-service-announcement-summary/",
+        "snippet": "そしてAmazon Novaをベースにした、画像生成サービスAmazon Nova Canvasと映像生成サービスのAmazon Nova Reelも発表されています。 今後Amazon NovaでのSpeech to SpeechやAny to Any（文章・音声・映像など）も期待できます。 Amazon Qで、ユニットテスト（Unit Test）、厳密なドキュメンテーション生成（Generate accurate documentation）、コードレビュー（Code Review）ができるようになりました。",
+        "displayUrl": "https://dev.classmethod.jp/articles/reinvent2024-ceo...",
+        "datePublished": null
     },
     {
-        "title": "絶対に知っておきたいAWSの使い方10選。3年使ってみて感じた ...",
-        "url": "https://i-think-it.net/how-to-aws/",
-        "snippet": "「圧倒的なスケールメリット」 や 「使いたい時に好きなだけ使える従量課金」 といったメリットを武器にしたAWSを筆頭としたクラウドサービスですが、ここに来て多くの企業が導入し始めているようです。",
-        "displayUrl": "https://i-think-it.net/how-to-aws",
-        "datePublished": "2020-04-21T00:00:00.0000000"
+        "title": "AWS re:Invent 2024 の注目の発表 | Amazon Web Services",
+        "url": "https://aws.amazon.com/jp/blogs/news/top-announcements-of-aws-reinvent-2024/",
+        "snippet": "毎年恒例の AWS フラッグシップカンファレンスである AWS re:Invent 2024 が、 今年も 2024 年 12 月 2 日から 6 日にかけてラスベガスで開催されます。このプレミアクラウドコンピューティングイベントでは、1 週間にわたる基調講演",
+        "displayUrl": "https://aws.amazon.com/jp/blogs/news/top-announcements...",
+        "datePublished": "2024-12-11T00:00:00.0000000"
     }
 ]

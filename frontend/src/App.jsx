@@ -4,13 +4,15 @@ import { AppProvider } from "./context/AppContext";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import FetchContent from './pages/FetchContent';
-import './styles/App.css';
+import { ChakraProvider, Container, Box } from '@chakra-ui/react';
 
 const Layout = ({ children }) => (
-  <>
+  <Box>
     <Navbar />
-    <div className="main-content">{children}</div>
-  </>
+    <Container maxW="container.lg" py={6}>
+      {children}
+    </Container>
+  </Box>
 );
 
 const router = createBrowserRouter([
@@ -34,9 +36,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
+    <ChakraProvider>
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
+    </ChakraProvider>
   );
 }
 

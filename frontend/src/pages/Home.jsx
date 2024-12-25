@@ -1,9 +1,18 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import useFetchContent from '../hooks/useFetchContent';
-import FetchContent from '../pages/FetchContent'; // パスを確認
-import GenerateBlog from '../pages/GenerateBlog'; // パスを確認
-import styles from './Home.module.css';
+import FetchContent from './FetchContent';
+import GenerateBlog from './GenerateBlog';
+import {
+  Box,
+  VStack,
+  Heading,
+  Input,
+  Button,
+  Text,
+  Spinner,
+  Divider,
+} from '@chakra-ui/react';
 
 const Home = () => {
   const { searchKeyword, setSearchKeyword } = useContext(AppContext);
@@ -12,7 +21,7 @@ const Home = () => {
 
   const fetchArticles = async () => {
     if (!searchKeyword) {
-      alert("Please enter a keyword!");
+      alert('Please enter a keyword!');
       return;
     }
     setArticles([]);
@@ -30,44 +39,53 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log("Articles fetched:", articles);
+    console.log('Articles fetched:', articles);
   }, [articles]);
 
   return (
-    <div className={styles.container}>
-      <h1>Article Fetcher</h1>
-      <div className={styles.inputGroup}>
-        <input
-          type="text"
-          placeholder="Enter a keyword..."
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-          className={styles.input}
-        />
-        <button onClick={fetchArticles} className={styles.button}>
-          {fetchLoading ? "Fetching..." : "Fetch Articles"}
-        </button>
-      </div>
-      {fetchLoading && <p>Loading articles...</p>}
-      {fetchError && <p className={styles.error}>Error: {fetchError}</p>}
-      <div className={styles.articles}>
-        {articles.length > 0 ? (
-          articles.map((article, index) => (
-            <div key={index} className={styles.article}>
-              <h3>{article.title}</h3>
-              <p>{article.snippet}</p>
-              <a href={article.url} target="_blank" rel="noopener noreferrer">
-                Read more
-              </a>
-            </div>
-          ))
-        ) : (
-          !fetchLoading && <p>No articles found.</p>
-        )}
-      </div>
-      <FetchContent articles={articles} />
-      <GenerateBlog contents={contents} />
-    </div>
+    <Box>
+      <VStack spacing={4} align="stretch">
+        <Heading size="lg" color="teal.600">
+          Article Fetcher
+        </Heading>
+        <Divider />
+        <Box>
+          <Input
+            placeholder="Enter a keyword..."
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            size="md"
+          />
+          <Button
+            mt={2}
+            colorScheme="teal"
+            onClick={fetchArticles}
+            isLoading={fetchLoading}
+          >
+            {fetchLoading ? 'Fetching...' : 'Fetch Articles'}
+          </Button>
+        </Box>
+        {fetchError && <Text color="red.500">Error: {fetchError}</Text>}
+        {fetchLoading && <Spinner />}
+        <Box>
+          {articles.length > 0 ? (
+            articles.map((article, index) => (
+              <Box key={index} p={4} bg="gray.100" borderRadius="md" mb={2}>
+                <Heading size="sm">{article.title}</Heading>
+                <Text>{article.snippet}</Text>
+                <a href={article.url} target="_blank" rel="noopener noreferrer">
+                  Read more
+                </a>
+              </Box>
+            ))
+          ) : (
+            !fetchLoading && <Text>No articles found.</Text>
+          )}
+        </Box>
+        <FetchContent articles={articles} />
+        <GenerateBlog contents={contents} />
+      </VStack>
+    </Box>
   );
 };
 
