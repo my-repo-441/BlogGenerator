@@ -11,7 +11,7 @@ print(WP_URL, WP_USER, WP_APP_PASSWORD)
 # def post_to_wordpress(title, content, image_url):
 def post_to_wordpress(title, content):
 
-    # # 画像をWordPressにアップロード
+    # #画像をWordPressにアップロード
     # media_url = "https://www.kuretom.com/wp-json/wp/v2/media"
     # image_data = requests.get(image_url).content
     # headers = {"Content-Disposition": "attachment; filename=image.jpg"}
