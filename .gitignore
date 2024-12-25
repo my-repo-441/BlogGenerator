@@ -4,6 +4,7 @@ package_lock.json
 .DS_Store
 frontend/.DS_Store
 frontend/node_modules
+frontend/package-lock.json
 
 backend/.env
 backend/.DS_Store
