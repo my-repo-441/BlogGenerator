@@ -6,4 +6,5 @@ frontend/.DS_Store
 frontend/node_modules
 
 backend/.env
+backend/data
 backend/.DS_Store
