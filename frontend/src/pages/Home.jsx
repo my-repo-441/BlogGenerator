@@ -1,40 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import FetchContent from "./FetchContent";
-import styles from "./Home.module.css";
+import React, {useContext, useState, useEffect} from 'react';
+import { AppContext } from '../context/AppContext';
+import useFetchContent from '../hooks/useFetchContent';
+import FetchContent from '../pages/FetchContent'; // パスを確認
+import GenerateBlog from '../pages/GenerateBlog'; // パスを確認
+import styles from './Home.module.css';
 
 const Home = () => {
-  const [keyword, setKeyword] = useState("");
+  const { searchKeyword, setSearchKeyword } = useContext(AppContext);
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { contents, loading: fetchLoading, error: fetchError } = useFetchContent(articles);
 
   const fetchArticles = async () => {
-    if (!keyword) {
+    if (!searchKeyword) {
       alert("Please enter a keyword!");
       return;
     }
-    setLoading(true);
-    setError("");
     setArticles([]);
 
     try {
-      const response = await fetch(`/api/fetch_bing_articles?keyword=${encodeURIComponent(keyword)}`);
+      const response = await fetch(`/api/fetch_bing_articles?keyword=${encodeURIComponent(searchKeyword)}`);
       if (!response.ok) {
         throw new Error(`Error fetching articles: ${response.statusText}`);
       }
-
       const data = await response.json();
       setArticles(data);
     } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      console.error(err.message);
     }
   };
 
   useEffect(() => {
-    console.log(articles);
+    console.log("Articles fetched:", articles);
   }, [articles]);
 
   return (
@@ -44,33 +40,33 @@ const Home = () => {
         <input
           type="text"
           placeholder="Enter a keyword..."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
           className={styles.input}
         />
         <button onClick={fetchArticles} className={styles.button}>
-          Fetch Articles
+          {fetchLoading ? "Fetching..." : "Fetch Articles"}
         </button>
       </div>
-      {loading && <p>Loading...</p>}
-      {error && <p className={styles.error}>Error: {error}</p>}
+      {fetchLoading && <p>Loading articles...</p>}
+      {fetchError && <p className={styles.error}>Error: {fetchError}</p>}
       <div className={styles.articles}>
-        {articles.map((article, index) => (
-          <div key={index} className={styles.article}>
-            <h3>{article.title}</h3>
-            <p>{article.snippet}</p>
-            <a href={article.url} target="_blank" rel="noopener noreferrer">
-              Read more
-            </a>
-          </div>
-        ))}
+        {articles.length > 0 ? (
+          articles.map((article, index) => (
+            <div key={index} className={styles.article}>
+              <h3>{article.title}</h3>
+              <p>{article.snippet}</p>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">
+                Read more
+              </a>
+            </div>
+          ))
+        ) : (
+          !fetchLoading && <p>No articles found.</p>
+        )}
       </div>
-      {/* <div className={styles.linkContainer}>
-        <Link to="/fetch-content" className={styles.link}>
-          Go to Fetch Content
-        </Link>
-      </div> */}
       <FetchContent articles={articles} />
+      <GenerateBlog contents={contents} />
     </div>
   );
 };

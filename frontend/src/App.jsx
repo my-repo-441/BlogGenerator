@@ -1,11 +1,11 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AppProvider } from "./context/AppContext";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import FetchContent from './pages/FetchContent'; // 追加
-import './styles/App.css'; // 全体のスタイリングを読み込み
+import FetchContent from './pages/FetchContent';
+import './styles/App.css';
 
-// 共通レイアウト
 const Layout = ({ children }) => (
   <>
     <Navbar />
@@ -33,7 +33,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
+  );
 }
 
 export default App;
