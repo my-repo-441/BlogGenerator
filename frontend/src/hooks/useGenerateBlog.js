@@ -6,7 +6,7 @@ export const useGenerateBlog = (contents) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
   
-    const generateBlog = async (title, blogKeywords) => {
+    const generateBlog = async (title, blogKeywords, continuousIteration, improvementIteration) => {
       if (!contents || contents.length === 0) {
         alert("No content available to generate a blog.");
         return;
@@ -25,6 +25,8 @@ export const useGenerateBlog = (contents) => {
             title,
             blogKeywords: blogKeywords.split(",").map((kw) => kw.trim()),
             urls: validContents.map((c) => ({ url: c.url, content: c.content })),
+            continuousIteration,
+            improvementIteration,
           }),
         });
         if (!response.ok) throw new Error(`Error: ${response.statusText}`);

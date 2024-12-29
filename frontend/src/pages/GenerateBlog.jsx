@@ -2,14 +2,26 @@ import React, { useState, useContext } from 'react';
 import { Box, VStack, Heading, Input, Button, Text, Divider } from '@chakra-ui/react';
 import useGenerateBlog from '../hooks/useGenerateBlog';
 import { AppContext } from '../context/AppContext';
+import BlogPreviewModal from './BlogPreviewModal';
 
 const GenerateBlog = ({ contents }) => {
   const { blogKeywords, setBlogKeywords } = useContext(AppContext);
   const { blog, statusLog, loading, error, generateBlog } = useGenerateBlog(contents);
   const [blogTitle, setBlogTitle] = useState('');
+  const [continuousIteration, setContinuousIteration] = useState('');
+  const [improvementIteration, setImprovementIteration] = useState('');
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false); // モーダルの状態管理
 
   const handleGenerate = () => {
-    generateBlog(blogTitle, blogKeywords);
+    generateBlog(blogTitle, blogKeywords, continuousIteration, improvementIteration);
+  };
+
+  const handlePreviewOpen = () => {
+    setIsPreviewOpen(true);
+  };
+
+  const handlePreviewClose = () => {
+    setIsPreviewOpen(false);
   };
 
   return (
@@ -35,21 +47,39 @@ const GenerateBlog = ({ contents }) => {
             size="md"
           />
         </Box>
-        <Button
-          colorScheme="teal"
-          onClick={handleGenerate}
-          isLoading={loading}
-        >
+        <Box>
+          <Input
+            placeholder="Enter improvementIteration"
+            type="number"
+            value={improvementIteration}
+            onChange={(e) => setImprovementIteration(e.target.value)}
+            size="md"
+          />
+        </Box>
+        <Box>
+          <Input
+            placeholder="Enter continuousIteration"
+            type="number"
+            value={continuousIteration}
+            onChange={(e) => setContinuousIteration(e.target.value)}
+            size="md"
+          />
+        </Box>
+        <Button colorScheme="teal" onClick={handleGenerate} isLoading={loading}>
           Generate Blog
         </Button>
         {error && <Text color="red.500">Error: {error}</Text>}
         {blog && (
-          <Box p={4} bg="white" borderRadius="md" shadow="sm">
-            <Heading size="sm">Generated Blog</Heading>
-            {/* 改行を保持するために whiteSpace を指定 */}
-            <Text mt={2} whiteSpace="pre-wrap">
-              {blog}
-            </Text>
+          <Box>
+            <Box p={4} bg="white" borderRadius="md" shadow="sm">
+              <Heading size="sm">Generated Blog</Heading>
+              <Text mt={2} whiteSpace="pre-wrap">
+                {blog}
+              </Text>
+            </Box>
+            <Button mt={4} colorScheme="blue" onClick={handlePreviewOpen}>
+              Preview
+            </Button>
           </Box>
         )}
         {statusLog.length > 0 && (
@@ -65,6 +95,9 @@ const GenerateBlog = ({ contents }) => {
           </Box>
         )}
       </VStack>
+
+      {/* プレビューモーダル */}
+      <BlogPreviewModal isOpen={isPreviewOpen} onClose={handlePreviewClose} blogContent={blog} />
     </Box>
   );
 };

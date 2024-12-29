@@ -9,9 +9,12 @@ import { ChakraProvider, Container, Box } from '@chakra-ui/react';
 const Layout = ({ children }) => (
   <Box>
     <Navbar />
-    <Container maxW="container.lg" py={6}>
-      {children}
-    </Container>
+    {/* Navbar の幅に合わせて左側の余白を設定 */}
+    <Box ml="250px">
+      <Container maxW="container.lg" py={6}>
+        {children}
+      </Container>
+    </Box>
   </Box>
 );
 

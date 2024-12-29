@@ -17,6 +17,7 @@ import {
 const Home = () => {
   const { searchKeyword, setSearchKeyword } = useContext(AppContext);
   const [articles, setArticles] = useState([]);
+  const [count, setCount] = useState([]);
   const { contents, loading: fetchLoading, error: fetchError } = useFetchContent(articles);
 
   const fetchArticles = async () => {
@@ -26,8 +27,14 @@ const Home = () => {
     }
     setArticles([]);
 
+    // 数値チェック
+    if (!count || isNaN(count) || parseInt(count) <= 0) {
+      alert('Please enter a valid number for count.');
+      return;
+    }
+
     try {
-      const response = await fetch(`/api/fetch_bing_articles?keyword=${encodeURIComponent(searchKeyword)}`);
+      const response = await fetch(`/api/fetch_bing_articles?keyword=${encodeURIComponent(searchKeyword)}&count=${count}`);
       if (!response.ok) {
         throw new Error(`Error fetching articles: ${response.statusText}`);
       }
@@ -42,6 +49,10 @@ const Home = () => {
     console.log('Articles fetched:', articles);
   }, [articles]);
 
+  useEffect(() => {
+    console.log('count:', count);
+  }, [count]);
+
   return (
     <Box>
       <VStack spacing={4} align="stretch">
@@ -51,9 +62,16 @@ const Home = () => {
         <Divider />
         <Box>
           <Input
-            placeholder="Enter a keyword..."
+            placeholder="取得する記事のキーワードを入力してください。"
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
+            size="md"
+          />
+          <Input
+            placeholder="取得する記事の数を入力してください。(空の場合は3つ)"
+            type="number"
+            value={count}
+            onChange={(e) => setCount(e.target.value)}
             size="md"
           />
           <Button
