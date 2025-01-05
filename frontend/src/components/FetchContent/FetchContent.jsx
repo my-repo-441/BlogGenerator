@@ -1,5 +1,5 @@
 import React from 'react';
-import useFetchContent from '../hooks/useFetchContent';
+import useFetchContent from '../../hooks/useFetchContent';
 
 const FetchContent = ({ articles }) => {
   const { contents, loading, error } = useFetchContent(articles);

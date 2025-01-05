@@ -46,6 +46,63 @@ def generate_blog_content(title, blog_keywords, collected_info, is_continuation=
     return response.choices[0].message.content.strip()
 
 
+def generate_twitter_post(content):
+    """
+    Generate a concise and engaging Twitter post based on the given content.
+    """
+    system_message = (
+        f"Create a concise and engaging Twitter post based on the following content:\n\n{content}\n\n"
+        "The post should be professional, clear, and within 280 characters."
+    )
+    user_content = "内容"
+
+    messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": user_content},
+    ]
+
+    try:
+        response = client.chat.completions.create(
+         model="gpt-4o-mini",
+         messages=messages,
+        )
+
+    except Exception as e:
+        print(f"Error generating blog content: {e}")
+        
+        return "エラーが発生しました。内容を生成できませんでした。"
+    
+    return response.choices[0].message.content.strip()
+
+def improve_blog_content(content):
+    """
+    Improve the given blog content using OpenAI.
+    """
+    system_message = (
+        f"Improve the following blog content:\n\n{content}\n\n"
+        "Make it more engaging, clear, and professional while retaining its original meaning."
+    )
+
+    user_content = "内容"
+
+    messages = [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": user_content},
+    ]
+
+    try:
+        response = client.chat.completions.create(
+         model="gpt-4o-mini",
+         messages=messages,
+        )
+
+    except Exception as e:
+        print(f"Error generating blog content: {e}")
+        
+        return "エラーが発生しました。内容を生成できませんでした。"
+    
+    return response.choices[0].message.content.strip()
+
 
 def generate_blog_img(title):
     response_img = client.images.generate(

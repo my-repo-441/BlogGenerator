@@ -10,6 +10,10 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost', // 開発環境では localhost を指定
+      },      
     },
   },
 });

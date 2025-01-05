@@ -24,17 +24,22 @@ const Navbar = () => {
             Home
           </Link>
         </ListItem>
+        <ListItem>
+          <Link href="/generate-blog" _hover={{ textDecoration: 'underline', color: 'teal.200' }}>
+            Generate Blog
+          </Link>
+        </ListItem>
         {/* 他のメニュー項目を追加できます */}
         <ListItem>
-          <Link href="/about" _hover={{ textDecoration: 'underline', color: 'teal.200' }}>
-            About
+          <Link href="/blog-to-tweet" _hover={{ textDecoration: 'underline', color: 'teal.200' }}>
+            Blog to Tweet
           </Link>
         </ListItem>
         <ListItem>
-          <Link href="/contact" _hover={{ textDecoration: 'underline', color: 'teal.200' }}>
-            Contact
+          <Link href="/improve_blog_content" _hover={{ textDecoration: 'underline', color: 'teal.200' }}>
+            Blog Improvement
           </Link>
-        </ListItem>
+        </ListItem>        
       </List>
     </Box>
   );

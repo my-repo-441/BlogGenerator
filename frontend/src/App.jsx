@@ -2,8 +2,10 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppProvider } from "./context/AppContext";
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import FetchContent from './pages/FetchContent';
+import GenerateBlogHome from './pages/GenerateBlogHome';
+import BlogToTweet from './pages/BlogToTweet';
+import ImproveBlogContent from './pages/ImproveBlogContent';
+import Top from './pages/Top';
 import { ChakraProvider, Container, Box } from '@chakra-ui/react';
 
 const Layout = ({ children }) => (
@@ -19,29 +21,19 @@ const Layout = ({ children }) => (
 );
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <Layout>
-        <Home />
-      </Layout>
-    ),
-  },
-  {
-    path: '/fetch-content',
-    element: (
-      <Layout>
-        <FetchContent />
-      </Layout>
-    ),
-  },
+  { path: '/', element: <Top /> },
+  { path: '/generate-blog', element: <GenerateBlogHome /> },
+  { path: '/blog-to-tweet', element: <BlogToTweet /> },
+  { path: '/improve_blog_content', element: <ImproveBlogContent /> },
 ]);
 
 function App() {
   return (
     <ChakraProvider>
       <AppProvider>
-        <RouterProvider router={router} />
+        <Layout>
+          <RouterProvider router={router} />
+        </Layout>
       </AppProvider>
     </ChakraProvider>
   );
